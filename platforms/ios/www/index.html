@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="viewport-fit=cover, initial-scale=1.0001, maximum-scale=1.0001, user-scalable=no, minimum-scale=1.0001, width=device-width, shrink-to-fit=no">
+        <!-- <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" /> -->
+        <meta http-equiv="Content-Security-Policy" content="img-src * 'self' data:; default-src * 'self' gap: wss: ws: ; style-src 'self' 'unsafe-inline'; media-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval';">
+        <link rel="stylesheet" href="./css/jquery.mobile-1.4.5.css" />
+        <link rel="stylesheet" type="text/css" href="./css/jquery-ui.css">
+        <!-- <link rel="stylesheet" type="text/css" href="./css/ionicons.min.css"> -->
+        <!-- <script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script> -->
+        <!-- <link href="https://unpkg.com/ionicons@4.5.5/dist/css/ionicons.min.css" rel="stylesheet"> -->
+        <link rel="stylesheet" href="./css/ion.checkRadio/css/ion.checkRadio.css"/>
+        <link rel="stylesheet" href="./css/ion.checkRadio/css/ion.checkRadio.green.css"/>
+        <link rel="stylesheet" type="text/css" href="./css/index.css">
+        <!--------------->
+        <!-- <script src="http://localhost:3000/socket.io-client/dist/socket.io.js"></script> -->
+        <!-- <script type="text/javascript" src="http://cdn.socket.io/socket.io-1.0.3.js"></script> -->
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script> -->
+        <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js'></script> -->
+        <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js'></script> -->
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/qs/6.7.0/qs.min.js'></script>
+        <script src="./js/socket.io.js"></script>
+        <script src="./js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            var previous_page = "#id-page-1";
+            function onLoad() {
+                document.addEventListener("deviceready", onDeviceReady, false);
+            }
+            function onDeviceReady() {
+                // $(document).on("mobileinit",function() {
+                //     $.mobile.autoInitializePage = false;
+                // });
+                var iosSettings = {};
+                iosSettings["kOSSettingsKeyAutoPrompt"] = true;
+                iosSettings["kOSSettingsKeyInAppLaunchURL"] = false;
+
+                window.plugins.OneSignal
+                    .startInit("38b1501b-067f-48f3-87d7-cc16c15fc51c")
+                    .handleNotificationOpened(notificationOpenedCallback)
+                    .inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.InAppAlert)
+                    .iOSSettings(iosSettings)
+                    .endInit();
+                window.plugins.OneSignal.promptForPushNotificationsWithUserResponse(function(accepted) {
+                    // alert("promptForPushNotificationsWithUserResponse"  + accepted);
+                });
+
+                window.plugins.OneSignal.getPermissionSubscriptionState(function(status) {
+                    window.localStorage.setItem("faveu_did", status.subscriptionStatus.userId);
+                    // faveu_data.hostdeviceId = status.subscriptionStatus.userId;
+                    window.localStorage.setItem("faveu_userdeviceId", status.subscriptionStatus.userId);
+                    // alert("status.subscriptionStatus.userId: " + status.subscriptionStatus.userId);
+                });
+
+                window.plugins.OneSignal.addSubscriptionObserver(function (state) {
+                    // alert("addSubscriptionObserver");
+                });
+                window.plugins.OneSignal.addPermissionObserver(function(state) {
+                    // alert("addPermissionObserver");
+                });
+
+                console.log('navigation: ', navigator.notification);
+
+                ////////////////////////////
+                var temp_start = window.localStorage.getItem("faveu_mode");
+
+                if (temp_start == "null") {
+                    //
+                } else if (temp_start == "link") {
+                    $.mobile.changePage("#id-page-link");
+                } else if (temp_start === "success") {
+                    $.mobile.changePage("#id-page-success");
+                } else if (temp_start === "fail") {
+                    $.mobile.changePage("#id-page-fail");
+                } else if (temp_start === "commsg") {
+                    $.mobile.changePage("#id-page-com");
+                } else if (temp_start === "comchat") {
+                    $.mobile.changePage("#id-page-successchat");
+                } else {
+                    // $.mobile.changePage("#id-page-1");
+                }
+
+                document.addEventListener("resume", onResume, false);
+            }
+
+            function onResume() {
+                var temp_resume = window.localStorage.getItem("faveu_mode");
+                var selector_in = '"' + previous_page + '"';
+
+                if (temp_resume == "null") {
+                } else if (temp_resume == "link") {
+                    $.mobile.changePage("#id-page-link");
+                } else if (temp_resume === "success") {
+                    $.mobile.changePage("#id-page-success");
+                } else if (temp_resume === "fail") {
+                    $.mobile.changePage("#id-page-fail");
+                } else if (temp_resume === "commsg") {
+                    $.mobile.changePage("#id-page-com");
+                } else if (temp_resume === "comchat") {
+                    $.mobile.changePage("#id-page-successchat");    
+                } else {
+                }
+            }
+
+        </script>
+        <script src="./lib/jquery.mobile-1.4.5.min.js"></script>
+        <script src="./js/jquery-ui.js"></script>
+        <title>FaveU</title>
+    </head>
+
+    <!-- Body -->
+    <!-- <body> -->
+    <body onload="onLoad()">
+         <!-- Start of register page -->
+         <div data-role="page" id="id-page-register" class="cls-page-register cls-page">
+            <div role="main" class="ui-content">
+                <div class="cls-pageregister-logo" id="id-pageregister-logo">
+                    <img src="./img/logo/faveu-logo.svg" alt="faveu-logo">
+                </div>
+                
+                <div class="cls-pageregister-form-div" id="id-pageregister-form-div">
+                    <form>
+                        <p>&nbsp;</p>
+                        <input type="text" value="" name="name" placeholder="your name" id="id-pageregister-username" autocomplete="off" required>
+                        <!-- <span class="cls-pageregister-tooltip" style="z-index: 1;">Your Name for FaveU</span> -->
+                        <!-- <input type="text" value="" name="phone" placeholder="your mobile phone" id="id-pageregister-userphone" autocomplete="off">
+                        <p>OR/AND</p> -->
+                        <input type="email" value="" name="email" placeholder="your email" id="id-pageregister-useremail" autocomplete="off">
+                        <div class="cls-pageregister-warning">
+                            <!-- <p>Your email is already taken!</p> -->
+                            <p style="display:none">Your contact is already taken!</p>
+                        </div>
+                        <button id="id-pageregister-btn" class="cls-pageregister-btn">REGISTER</button>
+                    </form>
+                </div>
+                <div class="cls-pageregister-text">
+                    <p>Your registered name & email will be used for FaveU</p>
+                    <img src="./img/symbol/info.png" alt="info-logo" title='Download "FaveU" again for your different name & email' id="id-pageregister-info">
+                </div>
+            </div>
+        </div>
+        <!-- /end of page-register -->
+
+        <!-- Start of 1st page -->
+        <div data-role="page" id="id-page-1" class="cls-page-1 cls-page">
+            <div role="main" class="ui-content">
+                <div class="cls-pageall-chat" id="id-pageall-chat">
+                        <!-- <div class="cls-page1-img1" id="id-page1-img1" style="display:none;"> -->
+                    <a href="#id-page-success2"><img src="./img/symbol/chat_link.png" alt="faveu-chat"></a>
+                </div>
+                <div class="cls-page1-logo" id="id-page1-logo">
+                    <img src="./img/logo/faveu-logo.svg" alt="faveu-logo">
+                </div>
+                <div class="cls-page1-form-div" id="id-page1-form-div">
+                    <form>
+                        <p>&nbsp;</p>
+                        <input type="email" value="" name="email" placeholder="your email" id="id-page1-useremail" autocomplete="off" disabled>
+                        <button id="id-page1-btn" class="cls-page1-btn">SUBMIT</button>
+                    </form>
+                </div>
+                <div class="cls-page1-disclaimer" id="id-page1-disclaimer">
+                    <p><strong>DISCLAIMER</strong></p>
+                </div>
+            </div>
+        </div>
+        <!-- /end of page-1 -->
+
+        <!-- Start of DISCLAIMER page -->
+        <div data-role="page" id="id-page-disclaimer" class="cls-page-disclaimer cls-page">
+            <div role="main" class="ui-content">
+                <div class="cls-disclaim-title" id="id-disclaim-title">
+                    <p><strong>DISCLAIMER</strong></p>
+                </div>
+                <div class="cls-disclaim-contents" id="id-disclaim-contents">
+                    <!-- <h3>Copyright</h3>
+                    <p>Users are free to download and use this mobile app for entertaining and personal purposes only. See Terms of Use for additional information. (c) WindBowl LLC. All rights reserved. May not be used or reproduced without permission by owners.</p> -->
+                    <h3>Disclaimer</h3>
+                    <p>The information contained on FaveU mobile app (the "Service") is for general information purposes only. Assumes no responsibility for errors or omissions in the contents on the Service. In no event shall be liable for any special, direct, indirect, consequential, or incidental damages or any damages whatsoever, whether in an action of contract, negligence or other tort, arising out of or in connection with the use of the Service or the contents of the Service. reserves the right to make additions, deletions, or modification to the contents on the Service at any time without prior notice. Not warrant that FaveU mobile app is free of viruses or other harmful components.</p>
+                    <h3>Terms of Use</h3>
+                    <p>Please read these Terms of Use carefully before using the FaveU mobile application operated by WindBowl LLC. Your access to and use of the Service is conditioned upon your acceptance of and compliance with these Terms. These Terms apply to all visitors, users and others who wish to access or use the Service. By accessing or using the Service you agree to be bound by these Terms. If you disagree with any part of the terms then you do not have permission to access the Service. For details, please refer to the https://www.faveu.com/termsofuse.</p>
+                </div>
+                <div class="cls-disclaim-form-div" id="id-disclaim-form-div">
+                    <form>
+                        <button type="sbumit" class="cls-disclaim-btn" id="id-disclaim-btn">BACK</button>
+                    </form>
+                </div>
+            </div>
+        </div><!-- /end of DISCLAIMER page -->
+
+        <!-- Start of 2nd page -->
+        <div data-role="page" id="id-page-2" class="cls-page-2 cls-page">
+            <div role="main" class="ui-content">
+                <div class="cls-pageall-chat" id="id-pageall-chat">
+                    <a href="#id-page-success2"><img src="./img/symbol/chat_link.png" alt="faveu-chat"></a>
+                </div>
+                <div class="cls-page2-text" id="id-page2-text">
+                    <p><strong>SELECT YOUR AVATAR</strong></p>
+                    <p><strong>AND ADD YOUR NAME</strong></p>
+                </div>
+                <div class="cls-page2-useravatar" id="id-page2-useravatar">
+                    <div class="cls-page2-useravatar-img">
+                        <img src="./img/avatar/avatar00.png" alt="avatar00"/>
+                    </div>
+                    <a href="#id-page-avatar" id="id-page2-useravatar-add" class="cls-page2-useravatar-add">
+                        <img src="./img/sign/ic_plus.png"/>
+                    </a>
+                </div>
+                <div class="cls-page2-form-div">
+                    <form>
+                        <p>&nbsp;</p>
+                        <input type="name" placeholder="your name" name="name" id="id-page2-username" onfocus="this.value = ''" autocomplete="off">
+                        <button id="id-page2-btn" class="cls-page2-btn">NEXT</button>
+                    </form>
+                </div>
+            </div>
+        </div><!-- /end of page-2 -->
+
+        <!-- Start of 4th page -->
+        <div data-role="page" id="id-page-4" class="cls-page-4 cls-page">
+            <div role="main" class="ui-content">
+                <div class="cls-pageall-chat" id="id-pageall-chat">
+                    <a href="#id-page-success2"><img src="./img/symbol/chat_link.png" alt="faveu-chat"></a>
+                </div>
+                <div class="cls-page4-text" id="id-page4-text">
+                    <p><strong>YOUR FAVEU</strong></p>
+                    <img src="./img/symbol/info.png" alt="info-logo" title="the one whose heart you want to investigate" id="id-page4-info">
+                    <!-- <i class="ion-help-circled"></i> -->
+                </div>
+                <div class="cls-page4-logo" id="id-page4-logo">
+                    <img src="./img/symbol/select_yourfaveu.png" alt="yourfaveu-logo">
+                </div>
+                <div class="cls-page4-form-div" id="id-page4-form-div">
+                    <form>
+                        <div class="cls-page4-form-divS0">
+                            <input type="name" placeholder="your faveu name" name="name" id="id-yourfaveu-name" onfocus="this.value = ''" required/>
+                        </div>
+                        <div class="cls-page4-form-divS1">
+                            <div class="cls-page4-select-div">
+                                <select id="id-country">
+                                    <option value='US'>US +1</option>                  
+                                    <option value='CN'>CN +86</option>
+                                    <option value='HK'>HK +852</option>
+                                    <option value='ID'>ID +62</option>
+                                    <option value='JP'>JP +81</option>
+                                    <option value='KR'>KR +82</option>
+                                    <option value='MY'>MY +60</option>
+                                    <option value='TW'>TW +886</option>
+                                    <!-- <option value='TH'>TH +66</option>
+                                    <option value='VN'>VN +84</option> -->
+                                </select>
+                            </div>
+                            <input type="text" placeholder="(area)xxxxxxxxx" name="phone" id="id-yourfaveu-phone" onfocus="this.value = ''" autocomplete="off"/>
+                        </div>
+                        <!-- <input type="text" placeholder="your faveu phone" name="phone" id="id-yourfaveu-phone" onfocus="this.value = ''" autocomplete="off"/> -->
+                        <p class="cls-page4-form-text">And/Or</p>
+                        <div class="cls-page4-form-divS2">
+                            <div class="cls-page4-emailimg-div">
+                                <img src="./img/symbol/email.png" alt="email-logo">
+                            </div>
+                            <input type="email" placeholder="example@example.com" name="email" id="id-yourfaveu-email" onfocus="this.value = ''" autocomplete="off"/>
+                        </div>
+                        <button id="id-page4-btn" class="cls-page4-btn">ADD</button>
+                    </form>
+                </div>
+            </div><!-- /content -->
+        </div><!-- /end of page-4 -->
+
+
+        <!-- Start of 5th page -->
+        <div data-role="page" id="id-page-5" class="cls-page-5 cls-page">
+            <div role="main" class="ui-content" id="id-content-page-5">
+
+                <div class="cls-page5-text1">
+                    <p><strong>YOUR FAVEU</strong></p>
+                </div><br>
+
+                <div class="ui-grid-a cls-page5-yourfaveu-div" id="id-page5-yourfaveu-div">
+                    <div class="ui-block-a cls-page5-yourfaveu-divS1">
+                        <img src="./img/symbol/selected_faveuavatar.png" alt="faveuavatar-imglogo" class="cls-page5-yourfaveu-img">
+                    </div>
+                    <div class="ui-block-b cls-page5-yourfaveu-divS2">
+                        <!-- <div class="ui-block-b cls-yourfaveu-blk2 cls-page5-yourfaveu-divS2" id="id-faveu-nameandemail-blk2"> -->
+                        <p class="page5-name_fvu"><strong></strong></p>
+                        <p class="page5-phone_fvu"><strong></strong></p>
+                        <p class="page5-email_fvu"><strong></strong></p>
+                    </div>
+                    <div class="ui-block-c cls-page5-yourfaveu-divS3"></div>
+                </div>
+
+                <div class="cls-page5-text2">
+                    <p><strong>YOUR "COMPETITION"</strong></p>
+                </div>
+
+
+                <!-- 1st bestman -->
+                <div class="ui-grid-b cls-page5-best0-div" id="id-page5-best0-div">
+                    <div class="ui-block-a ui-block-best">
+                        <div class="cls-page5-best0-img cls-page5-img">
+                            <img src="./img/avatar/avatar0.png" alt="avatar0"/>
+                        </div>
+                        <!-- <a href="#id-page-avatar" id="id-page5-best0-add"> -->
+                                <a href="#id-page-avatar" class="cls-page5-add best0">
+                            <img src="./img/sign/ic_plus.png"/>
+                        </a>
+                    </div>
+                    <div class="ui-block-b ui-block-best">
+                        <p><strong></strong></p>
+                    </div>
+                    <div class="ui-block-c ui-block-best">
+                        <form>
+                            <button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-delete-custom1 cls-page5-best0-delete cls-page5-delete" style="display: none">
+                                    <!-- <button id="id-page5-best0-delete" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-delete-custom1 cls-page5-best0-delete" style="display: none"> -->
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <!-- /grid-b -->
+
+                <!-- 2nd bestman -->
+                <div class="ui-grid-b cls-page5-best1-div" id="id-page5-best1-div">
+                    <div class="ui-block-a ui-block-best">
+                        <div class="cls-page5-best1-img cls-page5-img">
+                            <img src="./img/avatar/avatar0.png" alt="avatar0"/>
+                        </div>
+                        <!-- <a href="#id-page-avatar" id="id-page5-best1-add"> -->
+                                <a href="#id-page-avatar" class="cls-page5-add best1">
+                            <img src="./img/sign/ic_plus.png"/>
+                        </a>
+                    </div>
+                    <div class="ui-block-b ui-block-best">
+                        <p><strong></strong></p>
+                    </div>
+                    <div class="ui-block-c ui-block-best">
+                        <form>
+                            <button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-delete-custom1 cls-page5-best1-delete cls-page5-delete" style="display: none">
+                                    <!-- <button id="id-page5-best1-delete" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-delete-custom1 cls-page5-best1-delete" style="display: none"> -->
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <!-- /grid-b -->
+
+                <!-- 3rd bestman -->
+                <div class="ui-grid-b cls-page5-best2-div" id="id-page5-best2-div">
+                    <div class="ui-block-a ui-block-best">
+                        <div class="cls-page5-best2-img cls-page5-img">
+                            <img src="./img/avatar/avatar0.png" alt="avatar0"/>
+                        </div>
+                        <!-- <a href="#id-page-avatar" id="id-page5-best2-add"> -->
+                                <a href="#id-page-avatar" class="cls-page5-add best2">
+                            <img src="./img/sign/ic_plus.png"/>
+                        </a>
+                    </div>
+                    <div class="ui-block-b ui-block-best">
+                        <p><strong></strong></p>
+                    </div>
+                    <div class="ui-block-c ui-block-best">
+                        <form>
+                            <button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-delete-custom1 cls-page5-best2-delete cls-page5-delete" style="display: none">
+                                    <!-- <button id="id-page5-best2-delete" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-delete-custom1 cls-page5-best2-delete" style="display: none"> -->
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <!-- /grid-b -->
+
+                <!-- 4th bestman -->
+                <div class="ui-grid-b cls-page5-best3-div" id="id-page5-best3-div">
+                    <div class="ui-block-a ui-block-best">
+                        <div class="cls-page5-best3-img cls-page5-img">
+                            <img src="./img/avatar/avatar0.png" alt="avatar0"/>
+                        </div>
+                        <!-- <a href="#id-page-avatar" id="id-page5-best3-add"> -->
+                                <a href="#id-page-avatar" class="cls-page5-add best3">
+                            <img src="./img/sign/ic_plus.png"/>
+                        </a>
+                    </div>
+                    <div class="ui-block-b ui-block-best">
+                        <p><strong></strong></p>
+                    </div>
+                    <div class="ui-block-c ui-block-best">
+                        <form>
+                            <button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-delete-custom1 cls-page5-best3-delete cls-page5-delete" style="display: none">
+                                    <!-- <button id="id-page5-best3-delete" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-delete-custom1 cls-page5-best3-delete" style="display: none"> -->
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <!-- /grid-b -->
+
+                <div class="ui-grid-a cls-page5-form-div">
+                    <div class="ui-block-a cls-page5-form-divS1">
+                        <form>
+                            <div>
+                                <input type="name" placeholder='your "competition" name' name="name" id="id-page5-bestenemy-name" class="cls-page5-bestenemy-name" onfocus="this.value = ''"/>
+                            </div>
+                            <div>
+                                <button id="id-page5-btn1" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-arrow-u cls-page5-btn1"></button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="ui-block-b cls-page5-form-divS2">
+                        <form>
+                            <button id="id-page5-btn2" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-arrow-r cls-page5-btn2">
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /end of page-5 -->
+
+
+        <!-- Start of 6th page -->
+        <div data-role="page" id="id-page-6" class="cls-page-6 cls-page">
+            <div role="main" class="ui-content">
+                <div class="row cls-page6-logo" id="id-page6-logo">
+                    <img src="./img/symbol/almost_there.png" alt="flag-logo">
+                </div>
+                <div class="row common-row cls-page6-text1" id="id-page6-text1">
+                    <p><strong>ALMOST</strong></p>
+                    <p><strong>THERE!</strong></p>
+                </div>
+                <div class="row common-row cls-page6-text2" id="id-page6-text2">
+                    <p><strong>PLEASE SELECT THE CARD</strong></p>
+                    <p><strong>THAT DELIVERS YOUR HEART</strong></p>
+                </div>
+                <div class="row special-row cls-page6-envelopecard" id="id-page6-envelopecard">
+                    <div class="cls-page6-envelopecardS" id="id-page6-envelopecardS">
+                        <div class="cls-page6-envelopecard1" id="id-page6-envelopecard1">
+                            <div class="cls-inner11">
+                                <img src="./img/envelope/faveu_envelope_flap_opened.png" alt="faveucard top_opened" class="cls-innerimg11">
+                            </div>
+                            <div class="cls-cover11">
+                                <img src="./img/envelope/faveu_envelope_back.png" alt="faveucard back" class="cls-coverimg11">
+                            </div>
+                            <div class="cls-invite11">
+                                <img src="./img/smallinvitecard/invite_card1.svg" alt="faveucard invite" class="cls-inviteimg11">
+                            </div>
+                            <div class="cls-bot-left-right11">
+                                <img src="./img/envelope/faveu_envelope_front.png" alt="faveucard bot-left-right" class="cls-botleftrightimg11">
+                            </div>
+                            <div class="cls-outer11">
+                                <img src="./img/envelope/faveu_envelope_flap_closed.png" alt="faveucard top_clsoed" class="cls-outerimg11">
+                            </div>
+
+                        </div>
+                        <div class="cls-page6-envelopecard2" id="id-page6-envelopecard2">
+                            <div class="cls-inner22">
+                                <img src="./img/envelope/faveu_envelope_flap_opened.png" alt="faveucard top_opened" class="cls-innerimg22">
+                            </div>
+                            <div class="cls-cover22">
+                                <img src="./img/envelope/faveu_envelope_back.png" alt="faveucard back" class="cls-coverimg22">
+                            </div>
+                            <div class="cls-invite22">
+                                <img src="./img/smallinvitecard/invite_card2.svg" alt="faveucard invite" class="cls-inviteimg22">
+                            </div>
+                            <div class="cls-bot-left-right22">
+                                <img src="./img/envelope/faveu_envelope_front.png" alt="faveucard bot-left-right" class="cls-botleftrightimg22">
+                            </div>
+                            <div class="cls-outer22">
+                                <img src="./img/envelope/faveu_envelope_flap_closed.png" alt="faveucard top_clsoed" class="cls-outerimg22">
+                            </div>
+                        </div>
+                        <div class="cls-page6-envelopecard3" id="id-page6-envelopecard3">
+                            <div class="cls-inner33">
+                                <img src="./img/envelope/faveu_envelope_flap_opened.png" alt="faveucard top_opened" class="cls-innerimg33">
+                            </div>
+                            <div class="cls-cover33">
+                                <img src="./img/envelope/faveu_envelope_back.png" alt="faveucard back" class="cls-coverimg33">
+                            </div>
+                            <div class="cls-invite33">
+                                <img src="./img/smallinvitecard/invite_card3.svg" alt="faveucard invite" class="cls-inviteimg33">
+                            </div>
+                            <div class="cls-bot-left-right33">
+                                <img src="./img/envelope/faveu_envelope_front.png" alt="faveucard bot-left-right" class="cls-botleftrightimg33">
+                            </div>
+                            <div class="cls-outer33">
+                                <img src="./img/envelope/faveu_envelope_flap_closed.png" alt="faveucard top_clsoed" class="cls-outerimg33">
+                            </div>
+                        </div>
+                        <div class="cls-page6-envelopecard4" id="id-page6-envelopecard4">
+                            <div class="cls-inner44">
+                                <img src="./img/envelope/faveu_envelope_flap_opened.png" alt="faveucard top_opened" class="cls-innerimg44">
+                            </div>
+                            <div class="cls-cover44">
+                                <img src="./img/envelope/faveu_envelope_back.png" alt="faveucard back" class="cls-coverimg44">
+                            </div>
+                            <div class="cls-invite44">
+                                <img src="./img/smallinvitecard/invite_card4.svg" alt="faveucard invite" class="cls-inviteimg44">
+                            </div>
+                            <div class="cls-bot-left-right44">
+                                <img src="./img/envelope/faveu_envelope_front.png" alt="faveucard bot-left-right" class="cls-botleftrightimg44">
+                            </div>
+                            <div class="cls-outer44">
+                                <img src="./img/envelope/faveu_envelope_flap_closed.png" alt="faveucard top_clsoed" class="cls-outerimg44">
+                            </div>
+                        </div>
+                        <div class="cls-page6-envelopecard5" id="id-page6-envelopecard5">
+                            <div class="cls-inner55">
+                                <img src="./img/envelope/faveu_envelope_flap_opened.png" alt="faveucard top_opened" class="cls-innerimg55">
+                            </div>
+                            <div class="cls-cover55">
+                                <img src="./img/envelope/faveu_envelope_back.png" alt="faveucard back" class="cls-coverimg55">
+                            </div>
+                            <div class="cls-invite55">
+                                <img src="./img/smallinvitecard/invite_card5.svg" alt="faveucard invite" class="cls-inviteimg55">
+                            </div>
+                            <div class="cls-bot-left-right55">
+                                <img src="./img/envelope/faveu_envelope_front.png" alt="faveucard bot-left-right" class="cls-botleftrightimg55">
+                            </div>
+                            <div class="cls-outer55">
+                                <img src="./img/envelope/faveu_envelope_flap_closed.png" alt="faveucard top_clsoed" class="cls-outerimg55">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row common-row cls-page6-form-div" id="id-page6-form-div">
+                    <form>
+                        <button type="sbumit" class="cls-page6-btn" id="id-page6-btn" disabled>TAP TO SELECT</button>
+                    </form>
+                </div>
+
+            </div><!-- /content -->
+        </div><!-- /end of page-6 -->
+
+
+        <!-- Start of 6-1 page -->
+        <div data-role="page" id="id-page-61" class="cls-page-61 cls-page">
+            <div role="main" class="ui-content61">
+                <div class="cls-page61-text1" id="id-page61-text1">
+                    <p><strong>READY TO SEND?</strong></p>
+                    <p><strong>CONFIRM YOUR HEART</strong></p>
+                </div>
+
+                <div class="cls-page61-cardimg" id="id-page61-cardimg">
+                    <img src="./img/smallinvitecard/invite_card2.svg" alt="card2">
+                </div>
+
+                <div class="cls-page61-div" id="id-page61-div">
+
+                    <div class="cls-page61-divS1" id="id-page61-divS1">
+                        <form>
+                            <button id="id-page61-btn1" class="cls-page61-btn1">START AGAIN</button>
+                        </form>
+                    </div>
+                    <div class="ui-grid-a cls-page61-divS2" id="id-page61-divS1">
+                        <div class="ui-block-a">
+                            <p class="cls-page61-text2"><strong>YOUR FAVEU</strong></p>
+                        </div>
+                        <div class="ui-block-b">
+                            <form>
+                                <button id="id-page61-btn2" class="cls-page61-btn2">EDIT</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="ui-grid-a cls-page61-divS3" id="id-page61-divS3">
+                        <div class="ui-block-a">
+                            <img src="./img/symbol/selected_faveuavatar.png" alt="faveuavatar-imglogo">
+                        </div>
+                        <div class="ui-block-b">
+                            <p id="id-name"><strong></strong></p>
+                            <p id="id-phone"><strong></strong></p>
+                            <p id="id-email"><strong></strong></p>
+                        </div>
+                    </div>
+
+                    <div class="ui-grid-a cls-page61-divS4" id="id-page61-divS4">
+                        <div class="ui-block-a">
+                            <p class="cls-page61-text3"><strong>YOUR "COMPETITION"</strong></p>
+                        </div>
+                        <div class="ui-block-b">
+                            <form>
+                                <button id="id-page61-btn3" class="cls-page61-btn3">EDIT</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- 1st bestman -->
+                    <div class="ui-grid-a cls-page61-best0-div" id="id-page61-best0-div">
+                        <div class="ui-block-a ui-block-best">
+                            <div class="cls-page61-best0-img">
+                                <img src="./img/avatar/avatar0.png" alt="avatar0"/>
+                            </div>
+                        </div>
+                        <div class="ui-block-b ui-block-best">
+                            <p><strong></strong></p>
+                        </div>
+                    </div>
+                    <!-- /grid-b -->
+
+                    <!-- 2nd bestman -->
+                    <div class="ui-grid-a cls-page61-best1-div" id="id-page61-best1-div">
+                        <div class="ui-block-a ui-block-best">
+                            <div class="cls-page61-best1-img">
+                                <img src="./img/avatar/avatar0.png" alt="avatar0"/>
+                            </div>
+                        </div>
+                        <div class="ui-block-b ui-block-best">
+                            <p><strong></strong></p>
+                        </div>
+                    </div>
+                    <!-- /grid-b -->
+
+                    <!-- 3rd bestman -->
+                    <div class="ui-grid-a cls-page61-best2-div" id="id-page61-best2-div">
+                        <div class="ui-block-a ui-block-best">
+                             <div class="cls-page61-best2-img">
+                                <img src="./img/avatar/avatar0.png" alt="avatar0"/>
+                            </div>
+                        </div>
+                        <div class="ui-block-b ui-block-best">
+                            <p><strong></strong></p>
+                        </div>
+                    </div>
+                    <!-- /grid-b -->
+
+                    <!-- 4th bestman -->
+                    <div class="ui-grid-a cls-page61-best3-div" id="id-page61-best3-div">
+                        <div class="ui-block-a ui-block-best">
+                            <div class="cls-page61-best3-img">
+                                <img src="./img/avatar/avatar0.png" alt="avatar0"/>
+                            </div>
+                        </div>
+                        <div class="ui-block-b ui-block-best">
+                            <p><strong></strong></p>
+                        </div>
+                    </div><!-- /grid-b -->
+
+                    <!-- 5th bestman -->
+                    <div class="ui-grid-a cls-page61-best4-div" id="id-page61-best4-div" display="none">
+                        <div class="ui-block-a ui-block-best">
+                            <div class="cls-page61-best4-img">
+                            </div>
+                        </div>
+                        <div class="ui-block-b ui-block-best">
+                            <p><strong></strong></p>
+                        </div>
+                    </div><!-- /grid-b -->
+
+                    <!-- 6th bestman -->
+                    <div class="ui-grid-a cls-page61-best5-div" id="id-page61-best5-div" display="none">
+                        <div class="ui-block-a ui-block-best">
+                            <div class="cls-page61-best5-img">
+                            </div>
+                        </div>
+                        <div class="ui-block-b ui-block-best">
+                            <p><strong></strong></p>
+                        </div>
+                    </div><!-- /grid-b -->
+                </div>
+
+                <div class="cls-page61-form-div" id="id-page61-form-div">
+                    <form>
+                        <button id="id-page61-btn4" class="cls-page61-btn4">CONFIRM</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- /end of page-61 -->
+
+        <!-- Start of 7th page -->
+        <div data-role="page" id="id-page-7" class="cls-page-7 cls-page">
+            <div role="main" class="ui-content">
+                <div class="row cls-page7-logo" id="id-page7-logo">
+                    <img src="./img/symbol/delivery_truck.png" alt="delivery truck">
+                </div>
+                <div class="row common-row cls-page7-text" id="id-page7-text">
+                    <p><strong>YOUR HEART JUST SENT</strong></p>
+                </div>
+                <div class="cls-page7-div" id="id-page7-div">
+                    <div class="cls-flyingenvelopecard" id="id-flyingenvelopecard">
+                        <div class="cls-inner7">
+                            <img src="./img/envelope/faveu_envelope_flap_opened.png" alt="faveucard top_opened" class="cls-innerimg">
+                        </div>
+                        <div class="cls-cover7">
+                            <img src="./img/envelope/faveu_envelope_back.png" alt="faveucard back" class="cls-coverimg">
+                        </div>
+                        <div class="cls-invite7" id="id-invite-flying7">
+                            <img src="./img/smallinvitecard/invite_card2.svg" alt="faveucard invite" class="cls-inviteimg">
+                        </div>
+                        <div class="cls-bot-left-right7">
+                            <img src="./img/envelope/faveu_envelope_front.png" alt="faveucard bot-left-right" class="cls-botleftrightimg">
+                        </div>
+                        <div class="cls-outer7">
+                            <img src="./img/envelope/faveu_envelope_flap_closed.png" alt="faveucard top_clsoed" class="cls-outerimg">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div><!-- /end of page-7 -->
+
+        <!-- Start of 8th page -->
+        <div data-role="page" id="id-page-8" class="cls-page-8 cls-page">
+            <div role="main" class="ui-content">
+
+                <div class="row cls-page8-logo" id="id-page8-logo">
+                    <img src="./img/logo/faveu-logo.svg" alt="faveuend-logo">
+                </div>
+
+                <div class="row common-row cls-page8-text1" id="id-page8-text1">
+                    <p><strong>Successfully Complete!</strong></p>
+                </div>
+                <div class="row common-row cls-page8-text2" id="id-page8-text2">
+                    <p><strong>Press HOME Button to Quit</strong></p>
+                    <p>(Allow notification for FaveU's response)</P>
+                </div>
+            </div><!-- /content -->
+        </div><!-- /end of page-8 -->
+
+
+        <!-- Start of AVATAR page -->
+        <div data-role="page" id="id-page-avatar" class="cls-page-avatar cls-page">
+            <div role="main" class="ui-content">
+
+                <div class="cls-pageavatar-text">
+                    <p><strong>AVATAR SELECTION</strong></p>
+                </div><br>
+
+                <!-- grid -->
+                <div class="ui-grid-c cls-pageavatar-div" id="id-pageavatar-div">
+                    <!-- 1st row -->
+                    <div class="ui-block-a cls-1-1 cls-avatar">
+                        <img src="./img/avatar/avatar1.png" alt="avatar1">
+                    </div>
+                    <div class="ui-block-b cls-1-2 cls-avatar">
+                        <img src="./img/avatar/avatar2.png" alt="avatar2">
+                    </div>
+                    <div class="ui-block-c cls-1-3 cls-avatar">
+                        <img src="./img/avatar/avatar3.png" alt="avatar3">
+                    </div>
+                    <div class="ui-block-d cls-1-4 cls-avatar">
+                        <img src="./img/avatar/avatar4.png" alt="avatar4">
+                    </div>
+                    <!-- 2nd row -->
+                    <div class="ui-block-a cls-2-1 cls-avatar">
+                        <img src="./img/avatar/avatar5.png" alt="avatar5">
+                    </div>
+                    <div class="ui-block-b cls-2-2 cls-avatar">
+                        <img src="./img/avatar/avatar6.png" alt="avatar6">
+                    </div>
+                    <div class="ui-block-c cls-2-3 cls-avatar">
+                        <img src="./img/avatar/avatar7.png" alt="avatar7">
+                    </div>
+                    <div class="ui-block-d cls-2-4 cls-avatar">
+                        <img src="./img/avatar/avatar8.png" alt="avatar8">
+                    </div>
+                    <!-- 3rd row -->
+                    <div class="ui-block-a cls-3-1 cls-avatar">
+                        <img src="./img/avatar/avatar9.png" alt="avatar9">
+                    </div>
+                    <div class="ui-block-b cls-3-2 cls-avatar">
+                        <img src="./img/avatar/avatar10.png" alt="avatar10">
+                    </div>
+                    <div class="ui-block-c cls-3-3 cls-avatar">
+                        <img src="./img/avatar/avatar11.png" alt="avatar11">
+                    </div>
+                    <div class="ui-block-d cls-3-4 cls-avatar">
+                        <img src="./img/avatar/avatar12.png" alt="avatar12">
+                    </div>
+                    <!-- 4th row -->
+                    <div class="ui-block-a cls-4-1 cls-avatar">
+                        <img src="./img/avatar/avatar13.png" alt="avatar13">
+                    </div>
+                    <div class="ui-block-b cls-4-2 cls-avatar">
+                        <img src="./img/avatar/avatar14.png" alt="avatar14">
+                    </div>
+                    <div class="ui-block-c cls-4-3 cls-avatar">
+                        <img src="./img/avatar/avatar15.png" alt="avatar15">
+                    </div>
+                    <div class="ui-block-d cls-4-4 cls-avatar">
+                        <img src="./img/avatar/avatar16.png" alt="avatar16">
+                    </div>
+                    <!-- 5th row -->
+                    <div class="ui-block-a cls-5-1 cls-avatar">
+                        <img src="./img/avatar/avatar17.png" alt="avatar17">
+                    </div>
+                    <div class="ui-block-b cls-5-2 cls-avatar">
+                        <img src="./img/avatar/avatar18.png" alt="avatar18">
+                    </div>
+                    <div class="ui-block-c cls-5-3 cls-avatar">
+                        <img src="./img/avatar/avatar19.png" alt="avatar19">
+                    </div>
+                    <div class="ui-block-d cls-5-4 cls-avatar">
+                        <img src="./img/avatar/avatar20.png" alt="avatar20">
+                    </div>
+                    <!-- 6th row -->
+                    <div class="ui-block-a cls-6-1 cls-avatar">
+                        <img src="./img/avatar/avatar21.png" alt="avatar21">
+                    </div>
+                    <div class="ui-block-b cls-6-2 cls-avatar">
+                        <img src="./img/avatar/avatar22.png" alt="avatar22">
+                    </div>
+                    <div class="ui-block-c cls-6-3 cls-avatar">
+                        <img src="./img/avatar/avatar23.png" alt="avatar23">
+                    </div>
+                    <div class="ui-block-d cls-6-4 cls-avatar">
+                        <img src="./img/avatar/avatar24.png" alt="avatar24">
+                    </div>
+                    <!-- 7th row -->
+                    <div class="ui-block-a cls-7-1 cls-avatar">
+                        <img src="./img/avatar/avatar25.png" alt="avatar25">
+                    </div>
+                    <div class="ui-block-b cls-7-2 cls-avatar">
+                        <img src="./img/avatar/avatar26.png" alt="avatar26">
+                    </div>
+                    <div class="ui-block-c cls-7-3 cls-avatar">
+                        <img src="./img/avatar/avatar27.png" alt="avatar27">
+                    </div>
+                    <div class="ui-block-d cls-7-4 cls-avatar">
+                        <img src="./img/avatar/avatar28.png" alt="avatar28">
+                    </div>
+                </div><!-- /grid -->
+
+            </div><!-- /content -->
+        </div><!-- /end of page-avatar -->
+
+
+        <!-- Start of FLOWER page -->
+        <!-- <div data-role="page" id="id-page-flower" class="cls-page-flower">
+            <div role="main" class="ui-content" id="id-content-page-flower">
+
+                <div class="cls-pageflower-text">
+                    <p><strong>CLIP SELECTION</strong></p>
+                </div><br>
+
+                <div class="ui-grid-c cls-pageflower-div" id="id-pageflower-div">
+                
+                    <div class="ui-block-a cls-f1-1 cls-flower">
+                        <img src="./img/flower/flower1.png" alt="flower1">
+                    </div>
+                    <div class="ui-block-b cls-f1-2 cls-flower">
+                        <img src="./img/flower/flower2.png" alt="flower2">
+                    </div>
+                    <div class="ui-block-c cls-f1-3 cls-flower">
+                        <img src="./img/flower/flower3.png" alt="flower3">
+                    </div>
+                    <div class="ui-block-d cls-f1-4 cls-flower">
+                        <img src="./img/flower/flower4.png" alt="flower4">
+                    </div>
+             
+                    <div class="ui-block-a cls-f2-1 cls-flower">
+                        <img src="./img/flower/flower5.png" alt="flower5">
+                    </div>
+                    <div class="ui-block-b cls-f2-2 cls-flower">
+                        <img src="./img/flower/flower6.png" alt="flower6">
+                    </div>
+                    <div class="ui-block-c cls-f2-3 cls-flower">
+                        <img src="./img/flower/flower7.png" alt="flower7">
+                    </div>
+                    <div class="ui-block-d cls-f2-4 cls-flower">
+                        <img src="./img/flower/flower8.png" alt="flower8">
+                    </div>
+              
+                    <div class="ui-block-a cls-f3-1 cls-flower">
+                        <img src="./img/flower/flower9.png" alt="flower9">
+                    </div>
+                    <div class="ui-block-b cls-f3-2 cls-flower">
+                        <img src="./img/flower/flower10.png" alt="flower10">
+                    </div>
+                    <div class="ui-block-c cls-f3-3 cls-flower">
+                        <img src="./img/flower/flower11.png" alt="flower11">
+                    </div>
+                    <div class="ui-block-d cls-f3-4 cls-flower">
+                        <img src="./img/flower/flower12.png" alt="flower12">
+                    </div>
+             
+                    <div class="ui-block-a cls-f4-1 cls-flower">
+                        <img src="./img/flower/flower13.png" alt="flower13">
+                    </div>
+                    <div class="ui-block-b cls-f4-2 cls-flower">
+                        <img src="./img/flower/flower14.png" alt="flower14">
+                    </div>
+                    <div class="ui-block-c cls-f4-3 cls-flower">
+                        <img src="./img/flower/flower15.png" alt="flower15">
+                    </div>
+                    <div class="ui-block-d cls-f4-4 cls-flower">
+                        <img src="./img/flower/flower16.png" alt="flower16">
+                    </div>
+                 
+                    <div class="ui-block-a cls-f5-1 cls-flower">
+                        <img src="./img/flower/flower17.png" alt="flower17">
+                    </div>
+                    <div class="ui-block-b cls-f5-2 cls-flower">
+                        <img src="./img/flower/flower18.png" alt="flower18">
+                    </div>
+                    <div class="ui-block-c cls-f5-3 cls-flower">
+                        <img src="./img/flower/flower19.png" alt="flower19">
+                    </div>
+                    <div class="ui-block-d cls-f5-4 cls-flower">
+                        <img src="./img/flower/flower20.png" alt="flower20">
+                    </div>
+                    
+                </div>
+
+            </div>
+        </div> -->
+        <!-- /end of page-flower -->
+
+
+        <!-- Start of FAIL page -->
+        <div data-role="page" id="id-page-fail" class="cls-page-fail cls-page">
+            <div role="main" class="ui-content">
+                <div class="row common-row cls-pagefail-text1" id="id-pagefail-text1">
+                    <p><strong>MAYBE NEXT TIME!</strong></p>
+                </div>
+                <div class="cls-pagefail-text2" id="id-pagefail-text2">
+                    <p>Love</p>
+                </div>
+                <div class="row cls-pagefail-img1" id="id-pagefail-img1">
+                    <img src="./img/symbol/faveu_2circle.svg" alt="yourfaveu image">
+                </div>
+                <div class="row cls-pagefail-img2" id="id-pagefail-img2">
+                    <img src="./img/symbol/disconnected.png" alt="disconnect image">
+                </div>
+                <div class="row cls-pagefail-img3" id="id-pagefail-img3">
+                    <img src="./img/avatar/avatar0.png" alt="avatar0">
+                </div>
+                <div class="row common-row cls-pagefail-form-div" id="id-pagefail-form-div">
+                    <form>
+                        <button type="sbumit" class="cls-pagefail-btn" id="id-pagefail-btn">TRY AGAIN?</button>
+                    </form>
+                </div>
+                <div class="row common-row cls-pagefail-text3" id="id-pagefail-text3">
+                    <p><strong>OR SEE YOU LATER</strong></p>
+                </div>
+
+            </div><!-- /content -->
+        </div><!-- /end of page FAIL -->
+
+        <!-- Start of SUCCESS page -->
+        <div data-role="page" id="id-page-success" class="cls-page-success cls-page">
+            <div role="main" class="ui-content">
+                <div class="cls-pagesuc-animation" id="id-pagesuc-animation">
+                    <img src="./img/success_animation/fireworks_0.png" alt="animation">
+                </div>
+                <div class="row common-row cls-pagesuc-text1" id="id-pagesuc-text1">
+                    <p><strong>CONGRATS!!</strong></p>
+                    <p><strong>YOU ARE THE ONE WITH</strong></p>
+                </div>
+                <div class="cls-pagesuc-text2" id="id-pagesuc-text2">
+                    <p>Love</p>
+                </div>
+                <div class="row cls-pagesuc-img1" id="id-pagesuc-img1">
+                    <img src="./img/symbol/faveu_2circle.svg" alt="yourfaveu image">
+                </div>
+                <div class="row cls-pagesuc-img2" id="id-pagesuc-img2">
+                    <img src="./img/symbol/connected.png" alt="connect image">
+                </div>
+                <div class="row cls-pagesuc-img3" id="id-pagesuc-img3">
+                    <img src="./img/avatar/avatar0.png" alt="avatar0">
+                </div>
+                <div class="row common-row cls-pagesuc-form-div" id="id-pagesuc-form-div">
+                    <form>
+                        <button type="sbumit" class="cls-pagesuc-btn" id="id-pagesuc-btn">LET'S GET INTO IT</button>
+                    </form>
+                </div>
+
+            </div>
+        </div><!-- /end of page SUCCESS -->
+
+        <!-- Start of SUCCESS1 page -->
+        <div data-role="page" id="id-page-success1" class="cls-page-success1 cls-page">
+            <div role="main" class="ui-content">
+                <!-- <div class="cls-animate-div1" id="id-animate-div1">
+                    <img src="./img/success_animation/fireworks_0.png" alt="animation" class="cls-animation">
+                </div> -->
+                <div class="cls-pagesuc1-text1" id="id-pagesuc1-text1">
+                    <h1><strong>ALRIGHT,</strong></h1>
+                    <h1><strong>LET'S MOVE ON!</strong></h1>
+                </div>
+                <div class="cls-pagesuc1-text2" id="id-pagesuc1-text2">
+                    <p></p>
+                </div>
+                <div class="cls-pagesuc1-img1">
+                    <img src="./img/success_shining/success_move_on_icon.svg" alt="faveuavatar-imglogo">
+                </div>
+                <div class="cls-pagesuc1-text3" id="id-pagesuc1-text3">
+                    <p><strong>HOW DO YOU WANT TO CONTACT YOUR FAVEU?</strong></p>
+                </div>
+
+                <div class="cls-pagesuc1-form-div1" id="id-pagesuc1-form-div1">
+                    <form>
+                        <button type="sbumit" class="cls-pagesuc1-btn1" id="id-pagesuc1-btn1"><img class="cls-pagesuc1-img2" src="./img/success_shining/success_all_yours_icon.svg" />I will handle it myself</button>
+                    </form>
+                </div>
+                <div class="cls-pagesuc1-form-div2" id="id-pagesuc1-form-div2">
+                    <form>
+                        <button type="sbumit" class="cls-pagesuc1-btn2" id="id-pagesuc1-btn2"><img class="cls-pagesuc1-img3" src="./img/success_shining/success_btn_logo.png" />FaveU handles it for you</button>
+                    </form>
+                </div>
+            </div>
+        </div><!-- /end of SUCCESS1 page -->
+
+        <!-- Start of SUCCESS2 page -->
+        <div data-role="page" id="id-page-success2" class="cls-page-success2 cls-page">
+            <div role="main" class="ui-content">
+                <div class="cls-pageall-home" id="id-pageall-home">
+                    <a href="#id-page-1"><img src="./img/symbol/home.png" alt="faveu-home"></a>
+                </div>
+                <div class="cls-pagesuc2-text1" id="id-pagesuc2-text1">
+                    <h2><strong>PICK THE CONTACT</strong></h2>
+                    <h2><strong>TO YOUR FAVEU</strong></h2>
+                </div>
+                <div class="cls-pagesuc2-img1">
+                    <a href="#id-page-successchat"><img src="./img/symbol/chat.png" alt="faveusuc2-chat"></a>
+                    <p>CHAT WITH YOUR FAVEU</p>
+                </div>
+                <div class="cls-pagesuc2-line" id="id-pagesuc2-line">
+                    <!-- <p><strong>OR/AND</strong></p> -->
+                    <img src="./img/smallinvitecard_line/invite_line5.png" alt="faveusuc2-line">
+                </div>
+                <div class="cls-pagesuc2-img2">
+                    <a href="#id-page-successtext" id="id-text-link"><img src="./img/symbol/text.png" alt="faveusuc2-text"></a>
+                    <p>MESSAGE TO YOUR FAVEU</p>
+                </div>
+            </div>
+        </div><!-- /end of SUCCESS2 page -->
+
+        <!-- Start of SUCCESSCHAT page -->
+        <div data-role="page" id="id-page-successchat" class="cls-page-successchat cls-page">
+            <div role="main" class="ui-content">
+                <div class="cls-pageall-home" id="id-pageall-home">
+                    <a href="#id-page-1"><img src="./img/symbol/home.png" alt="faveu-home"></a>
+                </div>
+                <div class="cls-pagesucchat-img1">
+                    <img src="./img/logo/logo_without_text.svg" alt="faveu-logo">
+                </div>
+                <div class="cls-pagesucchat-text1" id="id-pagesucchat-text1">
+                    <h2><strong>CREATE or JOIN A CHAT ROOM</strong></h2>
+                </div>
+            
+                <div class="cls-pagesucchat-form-div">
+                    <form>
+                        <div class="cls-pagesucchat-form-subdiv1" >
+                            <!-- <label>User</label> -->
+                            <input type='text' name='room' id="id-pagesucchat-username" placeholder='user name' onfocus="this.value = ''" required>
+                        </div>
+                        <div class="cls-pagesucchat-form-subdiv2">
+                            <!-- <label>Room</label> -->
+                            <input type='text' name='room' id="id-pagesucchat-roomname" placeholder='room' maxlength='15' onfocus="this.value = ''" required>
+                        </div>
+                        <div class="cls-pagesucchat-form-subdiv3">
+                            <!-- <label>Your FaveU</label> -->
+                            <input type='text' name='room' id="id-pagesucchat-faveuname" placeholder='your faveu' onfocus="this.value = ''" required>
+                        </div>
+                        <div class="row common-row cls-pagesucchat-form-subdiv4" id="id-pagesucchat-form-subdiv4">
+                            <form>
+                                <button type="sbumit" class="cls-pagesucchat-btn" id="id-pagesucchat-btn">JOIN</button>
+                            </form>
+                        </div>
+                    </form>
+                    <div class="row common-row cls-pagesucchat-switch" id="id-pagesucchat-switch">
+                        <a href="" id="id-pagesucchat1-switch-link"><p><strong>CREATE</strong></p></a>
+                    </div>
+                </div>
+                <div class="cls-pagesucchat-text2" id="id-pagesucchat-text2" style="display:block;">
+                    <h2><strong>YOUR CURRENT CHAT ROOM</strong></h2>
+                    <div id="id-pagesucchat-active-chatroom">
+                        <!-- <div>
+                            <p>Faveu</p>
+                            <img src="./img/symbol/trash.png" id="id-pagesucchat-delete" alt="trash">
+                        </div>
+                        <div>
+                            <p>Faveu</p>
+                            <img src="./img/symbol/trash.png" id="id-pagesucchat-delete" alt="trash">
+                        </div> -->
+                    </div>
+                </div>
+                
+            </div>
+        </div><!-- /end of SUCCESSCHAT page -->
+
+        <!-- Start of SUCCESSCHAT1 page -->
+        <div data-role="page" id="id-page-successchat1" class="cls-page-successchat1 cls-page">
+            <div role="main" class="ui-content">
+                <div id="id-pagesucchat1-msg">
+                    <div class="cls-blank0">
+                    </div>
+                    <div id="id-pagesucchat1-msg1">
+                    </div>
+                    <div class="cls-blank1">
+                    </div>
+                </div>
+                <div class="cls-pagesucchat1-text1" id="id-pagesucchat1-text1">
+                    <!-- <div class="ui-grid-a cls-pagesucchat1-text1" id="id-pagesucchat1-text1"> -->
+                    <div class="ui-block-a ui-block-best">
+                        <a href="#id-page-successchat" id="id-pagesucchat1-back">
+                            <img src="./img/symbol/left_arrow3.png"/>
+                        </a>
+                    </div>
+                    <div class="ui-block-b ui-block-best">
+                        <h2 id="id-pagesucchat1-title"></h2>
+                    </div>
+                    <div class="ui-block-c ui-block-best">
+                    </div>
+                </div>
+                
+                <div class="cls-pagesucchat1-form-div">
+                    <form>
+                        <input type="text" placeholder="message" id="id-pagesucchat1-input" onfocus="this.value = ''" required autocomplete='off' required/>
+                        <button id="id-pagesucchat1-btn1" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-arrow-u"></button>
+                    </form>
+                </div>
+            </div>
+        </div><!-- /end of SUCCESSCHAT1 page -->
+
+        <!-- /Start of SUCCESStext page -->
+        <div data-role="page" id="id-page-successtext" class="cls-page-successtext cls-page">
+            <div role="main" class="ui-content">
+                <div class="cls-pagesuctext-text1" id="id-pagesuctext-text1">
+                    <p><strong>BEFORE WE DO IT FOR YOU,</strong></p>
+                    <p><strong>HERE IS THE PREVIEW</strong></p>
+                </div>
+                <div class="cls-pagesuctext-inputtext-div" id="id-pagesuctext-inputtext-div">
+                    <img class="cls-pagesuctext-img1" src="./img/symbol/lettertofaveu_success_bg.svg" />
+                    <div class="cls-pagesuctext-img2">
+                        <img src="./img/flower/flower1.png" alt="flower1"/>
+                    </div>
+                    <!-- <a href="#id-page-flower" id="id-pagesuc2-img3" class="cls-pagesuc2-img3">
+                        <img src="./img/sign/ic_plus.png"/>
+                    </a> -->
+                    <div class="cls-pagesuctext-inputtext" id="id-pagesuctext-inputtext">
+                        <p id="id-pagesuctext-inputtext-p">Hi <span id="id-pagesuctext-inputtext-span1">Olivia</span>,<br><br><span id="id-pagesuctext-inputtext-span2">your name</span><br> is the one who sent FaveU.<br>Now both of you know there is<br>something between you guys.<br> It's the time for next step.<br><br>Your friend, FaveU</p>
+                    </div>
+                    <div class="cls-pagesuctext-textinput-form-div" id="id-pagesuctext-textinput-form-div" style="display: none">
+                        <form>
+                            <textarea name="text" id="id-textinput" rows="10" maxlength="200" placeholder="" style="background-image:
+url(./img/symbol/lettertofaveu_success_bg.svg);">&#10;&#10;Hi Olivia&#10;&#10;your name&#10; is the one who sent FaveU. Now both of you know there is something between you guys. It's the time for next step.&#10;&#10;Your friend, FaveU</textarea>
+                        </form>
+                    </div>
+                    <div class="cls-pagesuctext-form-div1" id="id-pagesuctext-form-div1">
+                        <form>
+                            <button type="sbumit" class="cls-pagesuctext-btn1" id="id-pagesuctext-btn1">EDIT</button>
+                        </form>
+                    </div>
+                </div>
+                <P class="cls-pagesuctext-comment">Leave "BACK" button on</P>
+                <p class="cls-pagesuctext-comment">When wanting to send your edited text</P>
+                <div class="cls-pagesuctext-form-div2" id="id-pagesuctext-form-div2">
+                    <form>
+                        <button type="sbumit" class="cls-pagesuctext-btn2" id="id-pagesuctext-btn2">LET'S DO THIS!</button>
+                    </form>
+                </div>
+                
+            </div>
+        </div><!-- /end of SUCCESSTEXT page -->
+
+
+        <!-- /Start of SUCCESS3 page -->
+        <div data-role="page" id="id-page-success3" class="cls-page-success3 cls-page">
+            <div role="main" class="ui-content">
+                <div id="id-pagesuc3-text1" class="cls-pagesuc3-text1">
+                    <h3>SENDING...</h3>
+                </div>
+                <div class="cls-pagesuc3-img" id="id-pagesuc3-img">
+                    <img src="./img/symbol/plane_flying.svg" alt="success1faveu1-symbol">
+                </div>
+                <div id="id-pagesuc3-text2" class="cls-pagesuc3-text2" align="center">
+                    <p>WE'RE SENDING</p>
+                    <p>A NOTIFICATION (or EMAIL)</p>
+                    <p>TO YOUR FAVEU</p>
+                </div>
+                <div class="cls-pagesuc3-form-div" id="id-pagesuc3-form-div">
+                    <form>
+                        <button type="sbumit" class="cls-pagesuc3-btn" id="id-pagesuc3-btn">OKAY</button>
+                    </form>
+                </div>
+            </div>
+        </div><!-- /end of SUCCESS3 page -->
+
+
+        <!-- Start of LINK page -->
+        <div data-role="page" id="id-page-link" class="cls-page-link cls-page">
+            <div role="main" class="ui-content">
+                <div class="row cls-pagelink-logo" id="id-pagelink-logo">
+                    <img src="./img/logo/logo_without_text.svg" alt="faveuend-logo">
+                    <div class="cls-pagelink-p1" id="id-pagelink-p1">
+                       <p>3</p>
+                   </div>
+                </div>
+                <div class="cls-pagelink-text1" id="id-pagelink-text1">
+                    <p class="cls-pagelink-p2"><strong >3 FRIENDS SEND</strong></p>
+                    <p><strong>FAVEU TO YOU</strong></p>
+                </div>
+                <div class="cls-pagelink-text2" id="id-pagelink-text2">
+                    <p><strong>CLICK FOR LINK</strong></p>
+                </div>
+
+                <div class="cls-pagelink-form-div1" id="id-pagelink-form-div2">
+                    <form>
+                        <button type="sbumit" class="cls-pagelink-btn1" id="id-pagelink-btn1">FAVEU LINK</button>
+                    </form>
+                </div>
+                <div class="cls-pagelink-form-div2" id="id-pagelink-form-div2">
+                    <form>
+                        <button type="sbumit" class="cls-pagelink-btn2" id="id-pagelink-btn2">HOME</button>
+                    </form>
+                </div>
+
+            </div>
+        </div><!-- /end of page LINK -->
+
+
+        <!-- Start of LINKPREVIEW page -->
+        <div data-role="page" id="id-page-linkpv" class="cls-page-linkpv cls-page">
+            <div role="main" class="ui-content">
+                <div class="cls-pagelinkpv-text1" id="id-pagelinkpv-text1">
+                    <h3>PICK YOUR FAVEU LINK</h3>
+                </div>
+                <div class="cls-pagelinkpv-div" id="id-pagelinkpv-div">
+                    <div class="cls-pagelinkpv-divS0 cls-pagelinkpv-div-common" id="id-pagelinkpv-divS0">
+                        <img src="./img/smallinvitecard_blank/invite_card1.svg" alt="faveulink1">
+                        <p class="cls-preview-p">One of them sent FaveU</p>
+                        <p class="cls-preview0-name0">Love Chu</p>
+                        <p class="cls-preview0-name1">Donald Charlie</p>
+                        <p class="cls-preview0-name2">Gregory Pack</p>
+                        <p class="cls-preview0-name3" style="display: none">1411111</p>
+                        <p class="cls-preview0-name4" style="display: none">151111111111111111</p>
+                    </div>
+                    <div class="cls-pagelinkpv-divS1 cls-pagelinkpv-div-common" id="id-pagelinkpv-divS1" style="display: none">
+                        <img src="./img/smallinvitecard_blank/invite_card2.svg" alt="faveulink2">
+                        <p class="cls-preview-p">One of them sent FaveU</p>
+                        <p class="cls-preview1-name0">Harley Park</p>
+                        <p class="cls-preview1-name1">Il-Soo Lee</p>
+                        <p class="cls-preview1-name2">231</p>
+                        <p class="cls-preview1-name3" style="display: none">2411111111</p>
+                        <p class="cls-preview1-name4" style="display: none">25111111111111111111111</p>
+                    </div>
+                    <div class="cls-pagelinkpv-divS2 cls-pagelinkpv-div-common" id="id-pagelinkpv-divS2" style="display: none">
+                        <img src="./img/smallinvitecard_blank/invite_card4.svg" alt="faveulink3">
+                        <p class="cls-preview-p">One of them sent FaveU</p>
+                        <p class="cls-preview2-name0">Lovely Chang</p>
+                        <p class="cls-preview2-name1">Seung-Eun Chang</p>
+                        <p class="cls-preview2-name2">Spzposki Taylor Thomas</p>
+                        <p class="cls-preview2-name3" style="display: none">34111</p>
+                        <p class="cls-preview2-name4" style="display: none">35</p>
+                    </div>
+                    <div class="cls-pagelinkpv-divS3 cls-pagelinkpv-div-common" id="id-pagelinkpv-divS3" style="display: none">
+                        <img src="./img/smallinvitecard_blank/invite_card1.svg" alt="faveulink4">
+                        <p class="cls-preview-p">One of them sent FaveU</p>
+                        <p class="cls-preview3-name0">4111</p>
+                        <p class="cls-preview3-name1">42111111</p>
+                        <p class="cls-preview3-name2">431111</p>
+                        <p class="cls-preview3-name3" style="display: none">441</p>
+                        <p class="cls-preview3-name4" style="display: none">4511111</p>
+                    </div>
+                </div>
+
+            </div>
+        </div><!-- /end of page LINKPREVIEW -->
+
+
+        <!-- Start of LINK1 page -->
+        <div data-role="page" id="id-page-link1" class="cls-page-link1 cls-page">
+            <div role="main" class="ui-content">
+                <div class="row cls-pagelink1-logo" id="id-pagelink1-logo">
+                    <img src="./img/logo/faveu-logo-white.svg" alt="faveuend-logo">
+                </div>
+
+                <div class = "cls-pagelink1-div" id="id-pagelink1-div">
+                    <img src="./img/smallinvitecard_linkbg3/invite_card1.png" alt="linkshow_bg" class="cls-pagelink1-bg" id="id-pagelink1-bg">
+                    <div id="id-pagelink1-text1" class="cls-pagelink1-text1" align="center">
+                        <h2 id="id-pagelink1-p1">Hi</h2>
+                        <h2>One of your friends faveus you</h2>
+                    </div>
+                    <div id="id-pagelink1-img1">
+                        <img src="./img/smallinvitecard_line/invite_line1.png" alt="faveu-solidline">
+                    </div>
+                    <div id="id-pagelink1-text2" class="cls-pagelink1-text2">
+                        <h3>Please pick the one that you are most interested in</h3>
+                    </div>
+
+                    <div id="id-pagelink1-divS" class="cls-pagelink1-divS">
+                        <label class="icr-label cls-radio0" id="id-radio0">
+                            <span class="icr-item type_radio"></span>
+                            <span class="icr-hidden"><input class="icr-input radio00" type="radio" name="faveu" id="ch0" value="best0"/></span>
+                            <span class="radio-img0"><img src="./img/avatar/avatar0.png" alt="avatar3"/></span>
+                            <span class="icr-text" id="id-text0"><P>ChoCho</P></span>
+                        </label>
+                        <label class="icr-label cls-radio1" id="id-radio1">
+                            <span class="icr-item type_radio"></span>
+                            <span class="icr-hidden"><input class="icr-input radio11" type="radio" name="faveu" id="ch1" value="best1"/></span>
+                            <span class="radio-img1"><img src="./img/avatar/avatar0.png" alt="avatar4"/></span>
+                            <span class="icr-text" id="id-text1"><p>Han</p></span>
+                        </label>
+                        <label class="icr-label cls-radio2" id="id-radio2">
+                            <span class="icr-item type_radio"></span>
+                            <span class="icr-hidden"><input class="icr-input radio22" type="radio" name="faveu" id="ch2" value="best2"/></span>
+                            <span class="radio-img2"><img src="./img/avatar/avatar0.png" alt="avatar3"/></span>
+                            <span class="icr-text" id="id-text2"><P>ChoCho</P></span>
+                        </label>
+                        <label class="icr-label cls-radio3" id="id-radio3" style="display: none">
+                            <span class="icr-item type_radio"></span>
+                            <span class="icr-hidden"><input class="icr-input radio33" type="radio" name="faveu" id="ch3" value="best3"/></span>
+                            <span class="radio-img3"><img src="./img/avatar/avatar0.png" alt="avatar4"/></span>
+                            <span class="icr-text" id="id-text3"><p>Han</p></span>
+                        </label>
+                        <label class="icr-label cls-radio4" id="id-radio4" style="display: none">
+                            <span class="icr-item type_radio"></span>
+                            <span class="icr-hidden"><input class="icr-input radio44" type="radio" name="faveu" id="ch4" value="best4"/></span>
+                            <span class="radio-img4"><img src="./img/avatar/avatar0.png" alt="avatar3"/></span>
+                            <span class="icr-text" id="id-text4"><P>ChoCho</P></span>
+                        </label>
+                        <label class="icr-label cls-radio5" id="id-radio5" checked>
+                            <span class="icr-item type_radio"></span>
+                            <span class="icr-hidden"><input class="icr-input radio55" type="radio" name="faveu" id="reject" value="best5"/></span>
+                            <span class="icr-text cls-reject" id="id-text5"><p>Reject</p></span>
+                        </label>
+                    </div>
+
+                    <div class="cls-pagelink1-form-div" id="id-pagelink1-form-div">
+                        <form>
+                            <button type="sbumit" class="cls-pagelink1-btn" id="id-pagelink1-btn">SUBMIT</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /end of page LINK1 -->
+
+        <!-- Start of LINK THANK page -->
+        <div data-role="page" id="id-page-link2" class="cls-page-link2 cls-page">
+            <div role="main" class="ui-content">
+                <div id="id-pagelink2-text1" class="cls-pagelink2-text1" align="center">
+                    <h2>THANK YOU</h2>
+                </div>
+                <div class="row cls-pagelink2-logo" id="id-pagelink2-logo">
+                    <img src="./img/logo/logo_without_text.svg" alt="faveu-logo">
+                </div>
+                <div id="id-pagelink2-text2" class="cls-pagelink2-text2" align="center">
+                    <p>This will work anonymously. We will inform both you and your friend who asked this only when it matches</p>
+                </div>
+                <div class="cls-pagelink2-form-div" id="id-pagelink2-form-div">
+                    <form>
+                        <button type="sbumit" class="cls-pagelink2-btn" id="id-pagelink2-btn">DONE</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- /end of page LINK THANK -->
+
+        <!-- Start of Communication page -->
+        <div data-role="page" id="id-page-com" class="cls-page-com cls-page">
+            <div role="main" class="ui-content">
+                <div class="cls-pagecom-animation" id="id-pagecom-animation">
+                    <img src="./img/success_animation/fireworks_0.png" alt="animation">
+                </div>
+                <div class="cls-pagecom-text1" id="id-pagecom-text1">
+                    <h2><strong>YAY! CONGRATS</strong></h2>
+                </div>
+                <div class="cls-pagecom-div" id="id-pagecom-div">
+                    <div class="cls-pagecom-img1">
+                        <img src="./img/flower/flower1.png" alt="flower1"/>
+                    </div>
+                    <img class="cls-pagecom-bg" src="./img/symbol/lettertofaveu_success_bg.svg" />
+                    <div class="cls-pagecom-inputtext">
+                        <p id="id-pagecom-inputtext" style="white-space: pre-wrap;"></p>
+                    </div>
+                </div>
+                <div class="cls-pagecom-form-div" id="id-pagecom-form-div">
+                    <form>
+                        <button type="sbumit" class="cls-pagecom-btn" id="id-pagecom-btn">PLEASE CONTACT</button>
+                    </form>
+                </div>
+            </div>
+        </div><!-- /end of Communication page -->
+
+        <!-- Start of ERROR page -->
+        <div data-role="page" id="id-page-error" class="cls-page-error cls-page">
+            <div role="main" class="ui-content">
+
+                <div class="cls-pageerror-text1" id="id-pageerror-text1">
+                    <h2><strong>OOPS!</strong></h2>
+                </div>
+                <div class="row cls-pageerror-logo" id="id-pageerror-logo">
+                    <img src="./img/symbol/icon_sad_browser.svg" alt="error-logo">
+                </div>
+                <div class="cls-pageerror-text2" id="id-pageerror-text2">
+                    <p id="id-pageerror-message1">SOMETHING HAPPENS</p>
+                    <p id="id-pageerror-message2">PLEASE TRY AGAIN!</p>
+                </div>
+                <div class="cls-pageerror-text3" id="id-pageerror-text3">
+                    <p id="id-pageerror-error-message">Your email already used!</p>
+                </div>
+                <div class="cls-pageerror-form-div" id="id-pageerror-form-div">
+                    <form>
+                        <button type="sbumit" class="cls-pageerror-btn" id="id-pageerror-btn">BACK</button>
+                    </form>
+                </div>
+            </div>
+        </div><!-- /end of ERROR page -->
+
+        <script id='id-chatmsg-template-others' type='text/html'>
+            <div class="cls-chatmsg-others ui-grid-b" style="text-align:left;">
+                <div class="chatmsg-img ui-block-a">
+                    <img src="./img/avatar/avatar0.png">
+                </div>
+                <div class="chatmsg-text ui-block-b">
+                    <div id="chat-text">
+                        <p> {{text}}</p>
+                    </div>
+                    <div>
+                        <span style="font-size: 9px">{{createdAt}}</span>
+                    </div>
+                </div>
+            </div>
+        </script>
+        <script id='id-chatmsg-template-self' type='text/html'>
+            <div class="cls-chatmsg-self ui-grid-b" style="text-align:right;">
+                <div class='ui-block-a'>
+                </div>
+                <div class="chatmsg-text ui-block-b">
+                    <div id="chat-text">
+                        <p></p>
+                    </div>
+                    <div>
+                        <span style="font-size: 9px">{{createdAt}}</span> 
+                    </div>
+                </div>
+            </div>
+        </script>
+
+        <script type="text/javascript" src="cordova.js"></script>
+        <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js'></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js'></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/qs/6.7.0/qs.min.js'></script> -->
+        <script
+  src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
+  integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
+  crossorigin="anonymous"></script>
+        <script type="text/javascript" src="js/variables.js"></script>
+        <script type="text/javascript" src="js/objectandfunction.js"></script>
+        <script type="text/javascript" src="js/chat.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script src="./css/ion.checkRadio/js/ion.checkRadio.min.js"></script>
+        <script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
+    </body>
+</html>

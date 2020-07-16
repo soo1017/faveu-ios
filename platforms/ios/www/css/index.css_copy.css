@@ -1,0 +1,2597 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
+@font-face {
+  font-family: 'ProximaNova-Regular';
+  src: url(../font/Proxima_Nova_Reg.otf) format("truetype");
+}
+
+@font-face {
+  font-family: 'ProximaNova-Bold';
+  font-weight: bold;
+  src: url(../font/Proxima_Nova_Bold.otf) format("truetype");
+}
+
+@font-face {
+  font-family: 'ProximaNova-SemiBold';
+  src: url(../font/Proxima_Nova_Sbold.otf) format("truetype");
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    background-attachment:fixed;
+/*    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;*/
+    font-family: 'ProximaNova-Regular', 'ProximaNova-Semibold', 'ProximaNova-Bold';
+    font-size:12px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+/*    text-transform: uppercase;*/
+    width: auto;
+}
+
+.cls-page-1 {
+    background-image:linear-gradient(to bottom right, rgb(34, 227, 255) 0%, rgb(142, 255, 186) 90%);
+    background-image:-webkit-linear-gradient(left top, rgb(34, 227, 255) 0%, rgb(142, 255, 186) 90%);
+    background-image:-ms-linear-gradient(bottom right, rgb(34, 227, 255) 0%, rgb(142, 255, 186) 90%);
+    background-image:-webkit-gradient(linear, left top, right bottom, color-stop(0, rgb(34, 227, 255)), color-stop(0.90, rgb(142, 255, 186)));
+}
+
+.cls-page-11 {
+    background-image:linear-gradient(to bottom right, rgb(34, 227, 255) 0%, rgb(142, 255, 186) 80%);
+    background-image:-webkit-linear-gradient(left top, rgb(34, 227, 255) 0%, rgb(142, 255, 186) 80%);
+    background-image:-ms-linear-gradient(bottom right, rgb(34, 227, 255) 0%, rgb(142, 255, 186) 80%);
+    background-image:-webkit-gradient(linear, left top, right bottom, color-stop(0, rgb(34, 227, 255)), color-stop(0.80, rgb(142, 255, 186)));
+}
+
+
+.cls-page-2 {
+    background-image:linear-gradient(to bottom right, rgb(34, 227, 255) 0%, rgb(142, 255, 186) 75%);
+    background-image:-webkit-linear-gradient(left top, rgb(34, 227, 255) 0%, rgb(142, 255, 186) 75%);
+    background-image:-ms-linear-gradient(bottom right, rgb(34, 227, 255) 0%, rgb(142, 255, 186) 75%);
+    background-image:-webkit-gradient(linear, left top, right bottom, color-stop(0, rgb(34, 227, 255)), color-stop(0.75, rgb(142, 255, 186)));
+}
+
+.cls-page-3 {
+    background-image:linear-gradient(to bottom right, rgb(34, 227, 255) 0%, rgb(142, 255, 186) 60%);
+    background-image:-webkit-linear-gradient(left top, rgb(34, 227, 255) 0%, rgb(142, 255, 186) 60%);
+    background-image:-ms-linear-gradient(bottom right, rgb(34, 227, 255) 0%, rgb(142, 255, 186) 60%);
+    background-image:-webkit-gradient(linear, left top, right bottom, color-stop(0, rgb(34, 227, 255)), color-stop(0.6, rgb(142, 255, 186)));
+}
+
+.cls-page-4 {
+    background-image:linear-gradient(to bottom right, rgb(123, 247, 247) 0%, rgb(247, 241, 123) 80%);
+    background-image:-webkit-linear-gradient(left top, rgb(123, 247, 247) 0%, rgb(247, 241, 123) 80%);
+    background-image:-ms-linear-gradient(bottom right, rgb(123, 247, 247) 0%, rgb(247, 241, 123) 80%);
+    background-image:-webkit-gradient(linear, left top, right bottom, color-stop(0, rgb(123, 247, 247)), color-stop(0.8, rgb(247, 241, 123)));
+}
+
+.cls-page-5 {
+    background-image:linear-gradient(to bottom right, rgb(123, 247, 247) 0%, rgb(247, 241, 123) 60%);
+    background-image:-webkit-linear-gradient(left top, rgb(123, 247, 247) 0%, rgb(247, 241, 123) 60%);
+    background-image:-ms-linear-gradient(bottom right, rgb(123, 247, 247) 0%, rgb(247, 241, 123) 60%);
+    background-image:-webkit-gradient(linear, left top, right bottom, color-stop(0, rgb(123, 247, 247)), color-stop(0.6, rgb(247, 241, 123)));
+}
+
+.cls-page-6 {
+    background-image:linear-gradient(to bottom right, rgb(255, 253, 199) 0%, rgb(243, 202, 4) 60%);
+    background-image:-webkit-linear-gradient(left top, rgb(255, 253, 199) 0%, rgb(243, 202, 4) 60%);
+    background-image:-ms-linear-gradient(bottom right, rgb(255, 253, 199) 0%, rgb(243, 202, 4) 60%);
+    background-image:-webkit-gradient(linear, left top, right bottom, color-stop(0, rgb(255, 253, 199)), color-stop(0.6, rgb(243, 202, 4)));
+}
+
+.cls-page-61 {
+    background-image:linear-gradient(to bottom right, rgb(255, 253, 199) 0%, rgb(243, 202, 4) 70%);
+    background-image:-webkit-linear-gradient(left top, rgb(255, 253, 199) 0%, rgb(243, 202, 4) 70%);
+    background-image:-ms-linear-gradient(bottom right, rgb(255, 253, 199) 0%, rgb(243, 202, 4) 70%);
+    background-image:-webkit-gradient(linear, left top, right bottom, color-stop(0, rgb(255, 253, 199)), color-stop(0.7, rgb(243, 202, 4)));
+}
+
+.cls-page-7 {
+    background-image:linear-gradient(to bottom right, rgb(255, 253, 199) 0%, rgb(243, 202, 4) 80%);
+    background-image:-webkit-linear-gradient(left top, rgb(255, 253, 199) 0%, rgb(243, 202, 4) 80%);
+    background-image:-ms-linear-gradient(bottom right, rgb(255, 253, 199) 0%, rgb(243, 202, 4) 80%);
+    background-image:-webkit-gradient(linear, left top, right bottom, color-stop(0, rgb(255, 253, 199)), color-stop(0.8, rgb(243, 202, 4)));
+}
+
+.cls-page-8 {
+    background-image:linear-gradient(to bottom right, rgb(255, 253, 199) 0%, rgb(243, 202, 4) 99%);
+    background-image:-webkit-linear-gradient(left top, rgb(255, 253, 199) 0%, rgb(243, 202, 4) 99%);
+    background-image:-ms-linear-gradient(bottom right, rgb(255, 253, 199) 0%, rgb(243, 202, 4) 99%);
+    background-image:-webkit-gradient(linear, left top, right bottom, color-stop(0, rgb(255, 253, 199)), color-stop(0.99, rgb(243, 202, 4)));
+}
+
+.cls-page-fail,
+.cls-page-success,
+.cls-page-link {
+    background-image:linear-gradient(to bottom right, rgb(123, 247, 247) 0%, rgb(247, 241, 123) 70%);
+    background-image:-webkit-linear-gradient(left top, rgb(123, 247, 247) 0%, rgb(247, 241, 123) 70%);
+    background-image:-ms-linear-gradient(bottom right, rgb(123, 247, 247) 0%, rgb(247, 241, 123) 70%);
+    background-image:-webkit-gradient(linear, left top, right bottom, color-stop(0, rgb(123, 247, 247)), color-stop(0.70, rgb(247, 241, 123)));
+}
+
+.cls-page-success1 {
+    background-image:linear-gradient(to bottom right, rgb(123, 247, 247) 0%, rgb(247, 241, 123) 80%);
+    background-image:-webkit-linear-gradient(left top, rgb(123, 247, 247) 0%, rgb(247, 241, 123) 80%);
+    background-image:-ms-linear-gradient(bottom right, rgb(123, 247, 247) 0%, rgb(247, 241, 123) 80%);
+    background-image:-webkit-gradient(linear, left top, right bottom, color-stop(0, rgb(123, 247, 247)), color-stop(0.80, rgb(247, 241, 123)));
+}
+
+.cls-page-avatar {
+    background-image:linear-gradient(to bottom right, rgb(123, 247, 247) 0%, rgb(247, 241, 123) 90%);
+    background-image:-webkit-linear-gradient(left top, rgb(123, 247, 247) 0%, rgb(247, 241, 123) 90%);
+    background-image:-ms-linear-gradient(bottom right, rgb(123, 247, 247) 0%, rgb(247, 241, 123) 90%);
+    background-image:-webkit-gradient(linear, left top, right bottom, color-stop(0, rgb(123, 247, 247)), color-stop(0.90, rgb(247, 241, 123)));
+}
+
+
+
+/*****************************/
+/* ------- 1st Page -------- */
+/*****************************/
+.cls-page-1 .ui-content .cls-imglogo {
+    text-align: center;
+    margin: 60% 0 0 0
+}
+
+.cls-page-1 .ui-content .cls-userin {
+    margin: 0 10%;
+}
+
+.cls-page-1 .ui-content .cls-formuserin p {
+    margin: 0;
+}
+
+/* --------- Tooltip -------- */
+.ui-tooltip-useremail {
+    background: rgba(255, 186, 0, 0.4) !important;
+    font-size: 15px !important;
+    color: rgb(0, 84, 149) !important;
+    border: 2px solid white !important;
+    border-radius: 10px !important;
+    text-align: center;
+    height: auto !important;
+}
+/* --------------------------- */
+
+.cls-page-1 .ui-content .cls-userin .cls-formuserin input[type="email"],
+.cls-page-1 .ui-content .cls-userin .cls-formuserin input[type="name"] {
+    height: 50px;
+    width: 92%;
+    margin: 0 4%;
+    padding: 1px;
+    background: transparent;
+    font-size: 160%;
+    border: 0; 
+    border-radius: 0px;
+    border-bottom: 3px solid rgb(0, 84, 149);
+    color: rgb(1, 85, 149);
+}
+
+.cls-page-1 .ui-content .cls-userin .cls-formuserin input[type="name"] {
+    margin-top: 3%;
+}
+
+.cls-page-1 .ui-content .cls-userin .cls-formuserin input[type="email"]:focus,
+.cls-page-1 .ui-content .cls-userin .cls-formuserin input[type="name"]:focus {
+     outline: none;
+}
+
+.cls-page-1 .ui-content .cls-userin .cls-formuserin button {
+    margin: 2.2em 0 0 0;
+    font-size: 18px;
+	padding: 0.75em 0;
+	display: block;
+	position: relative;
+	text-align: center;
+
+    background-color: rgb(0, 84, 149);
+    color: white;
+    font-weight: none;
+    word-spacing: 0.25em;
+    letter-spacing: 0.15em;
+    border: 0;
+    border-radius: 1.375em;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+    outline: none;
+}
+
+.cls-page-1 .ui-content .cls-userin .cls-formuserin button:target {
+    background-color: rgb(0, 84, 149);
+    color: white;
+}
+
+.cls-page-1 .ui-content .cls-userin .cls-formuserin button:active {
+    background-color: rgba(252, 247, 135, 0.58);
+    color: rgb(0, 84, 149);
+}
+
+.cls-page-1 .ui-content .cls-disclaimer {
+    width: 50%;
+    height: 25px;
+    margin: 10% 25% 0 25%;
+    text-align: center;
+    letter-spacing: 2px;
+    color: rgb(0, 84, 149);
+}
+
+
+
+
+/* ------- 11 Page -------- */
+/*****************************/
+.cls-page-11 .ui-content {
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.cls-page-11 .ui-content .cls-message-mode {
+    position: inherit;
+    width: 100%;
+    height: 50px;
+    margin-top: 30%;
+    text-align: center;
+    color: rgb(0, 84, 149);
+}
+
+.cls-page-11 .ui-content .cls-message-mode p {
+    font-size: 160%;
+    margin: 0 0 0.5em 0;
+    letter-spacing: 2px;
+}
+
+.cls-page-11 .ui-content .cls-modecard {
+    position: inherit;
+/*    position: fixed;*/
+    margin-top: 15%;
+    margin-bottom: 10%;
+/*    width: 410px;*/
+    width: 100%;
+    vertical-align: middle;
+    height: 300px;
+    display: box;
+    display: -webkit-box;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+.cls-page-11 .ui-content .cls-modecard .cls-middle-modecard {
+    position: relative;
+    width: 780px;
+    height: 300px;
+/*    right: 50%;*/
+    text-align: center;
+/*    transform: translateX(-205px);*/
+/*    left: -205px;*/
+/*    margin-left: -390px;*/
+}
+
+.cls-page-11 .ui-content .cls-modecard .cls-modecard1,
+.cls-page-11 .ui-content .cls-modecard .cls-modecard2,
+.cls-page-11 .ui-content .cls-modecard .cls-modecard3 {
+    position: relative;
+    width: 240px;
+    height: 280px;
+    margin: 0 10px;
+    text-align: center;
+    background-color: transparent;
+    display: inline-block;
+/*    margin-right: -100%;*/
+/*
+    left: -24%;
+    -webkit-transform: translateX(44%);
+    transform: translateX(44%);
+    overflow: auto;
+*/
+}
+
+.cls-page-11 .ui-content .cls-modecard .cls-modecard1 .cls-modecard-1,
+.cls-page-11 .ui-content .cls-modecard .cls-modecard2 .cls-modecard-2,
+.cls-page-11 .ui-content .cls-modecard .cls-modecard3 .cls-modecard-3 {
+    width: 240px;
+    height: 280px;
+}
+
+.cls-page-11 .ui-content .cls-modecard .cls-modecard2 .cls-lightcard,
+.cls-page-11 .ui-content .cls-modecard .cls-modecard1 .cls-bffcard,
+.cls-page-11 .ui-content .cls-modecard .cls-modecard3 .cls-seriouscard {
+    z-index: 10;
+    position: absolute;
+    left: 60px;
+    top: 70px;
+}
+
+.cls-page-11 .ui-content .cls-modecard .cls-modecard1 #bff-text {
+    z-index: 10;
+    position: absolute;
+    left: 38%;
+    top: 200px;
+    font-size: 160%;
+    letter-spacing: 1px;
+    word-spacing: 3px;
+    color: rgb(0, 84, 149);
+}
+
+.cls-page-11 .ui-content .cls-modecard .cls-modecard2 #light-text {
+    z-index: 10;
+    position: absolute;
+    left: 33%;
+    top: 200px;
+    font-size: 160%;
+    letter-spacing: 1px;
+    word-spacing: 3px;
+    color: rgb(0, 84, 149);
+}
+
+.cls-page-11 .ui-content .cls-modecard .cls-modecard3 #serious-text {
+    z-index: 10;
+    position: absolute;
+    left: 28%;
+    top: 200px;
+    font-size: 160%;
+    letter-spacing: 1px;
+    word-spacing: 3px;
+    color: rgb(0, 84, 149);
+}
+
+.cls-page-11 .ui-content .cls-modecardbtn-div {
+/*    position: absolute;*/
+/*    top: 600px;*/
+    width: 90%;
+    height: 50px;
+    margin: 5% 5% 0 5%;
+    background: transparent;
+}
+
+.cls-page-11 .ui-content .cls-modecardbtn-div .cls-form-modecardbtn {
+    width: 100%;
+    height: 50px;
+    outline: none;
+}
+
+.cls-page-11 .ui-content .cls-modecardbtn-div .cls-form-modecardbtn .cls-submitbtn-mode {
+    width: 100%;
+    height: 50px;
+    font-size: 16px;
+    padding: 0.6em 0;
+    text-align: center;
+    position: relative;
+
+	overflow: hidden;
+	white-space: nowrap;
+	cursor: pointer;
+
+    background-color: transparent;
+    color: rgb(0, 84, 149);
+    font-weight: none;
+    word-spacing: 0.25em;
+    letter-spacing: 0.15em;
+    border: 3px solid rgb(0, 84, 149);
+    border-radius: 2em;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+    outline: none;
+}
+
+.cls-page-11 .ui-content .cls-modecardbtn-div .cls-form-modecardbtn .cls-submitbtn-mode:target {
+/*
+    background-color: rgb(0, 84, 149);
+    color: white;
+*/
+    background-color: transparent;
+    color: rgb(0, 84, 149);
+}
+
+.cls-page-11 .ui-content .cls-modecardbtn-div .cls-form-modecardbtn .cls-submitbtn-mode:active {
+    background-color: rgb(0, 84, 149);
+    color: white;
+    border: 0;
+    outline: none;
+    -webkit-text-shadow: none;
+    text-shadow: none;
+}
+
+
+
+
+/* ------- 2nd Page -------- */
+/*****************************/
+.cls-page-2 .ui-content .cls-message-avatarname {
+    margin: 40% 10% 15% 10%;  /* margin-bottom will change */
+    text-align: center;
+    font-size: 150%;
+    color: rgb(0, 84, 149);
+    word-spacing: 3px;
+    letter-spacing: 2px;
+}
+    
+.cls-page-2 .ui-content .cls-message-avatarname p {
+    margin: 2% 0;
+}
+
+.cls-page-2 .ui-content .cls-youravatar {
+    position: relative;
+    text-align: center;
+    margin: 0 30%;
+    width: auto;
+    height: 126px;
+}
+
+.cls-page-2 .ui-content .cls-youravatar .cls-youravatar-largeimg {
+    position: relative;
+    vertical-align: center;
+}
+
+.cls-page-2 .ui-content .cls-youravatar .cls-youravatar-largebtn {
+    position: absolute;
+    background-color: rgb(0, 84, 149);
+    border-radius: 50px;
+    vertical-align: center;
+/*    display: inline-flex;*/
+    padding: 10px;
+    top: 0;
+    left: 65%;
+}
+
+.cls-page-2 .ui-content .cls-youravatar .cls-youravatar-largebtn img {
+    vertical-align: top;
+}
+
+.cls-page-2 .ui-content .cls-youravatar .cls-youravatar-largeimg img {
+    border-radius: 50%;
+    width: 120px !important;
+    height: 120px !important;
+    border: 3px solid #0b4e90;
+}
+
+.cls-page-2 .ui-content .cls-realname .cls-form-realname {
+    width: 80%;
+    margin: 0 10%;
+}
+    
+.cls-page-2 .ui-content .cls-realname .cls-form-realname input[type="name"] {
+    height: 50px;
+    width: 94%;
+    padding: 0;
+    text-align: center;
+    margin: 0 3%;
+}
+
+.cls-page-2 .ui-content .cls-realname .cls-form-realname .ui-btn {
+    margin: 4em 0 0 0;
+    height: 50px;
+    font-size: 18px;
+	padding: 0.75em 0;
+	display: block;
+	position: relative;
+	text-align: center;
+	overflow: hidden;
+	white-space: nowrap;
+	cursor: pointer;
+    background-color: rgb(0, 84, 149);
+    color: white;
+    font-weight: none;
+    word-spacing: 0.25em;
+    letter-spacing: 0.15em;
+    border: 0;
+    border-radius: 1.375em;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+    outline: none;
+}
+
+.cls-page-2 .ui-content .cls-realname .cls-form-realname .ui-btn:target {
+    background-color: rgb(0, 84, 149);
+    color: white;
+}
+
+.cls-page-2 .ui-content .cls-realname .cls-form-realname .ui-btn:active {
+    background-color: rgba(252, 247, 135, 0.58);
+    color: rgb(0, 84, 149);
+}
+
+.cls-page-2 .ui-content .cls-realname .cls-form-realname input[type="name"] {
+    background: transparent;
+    font-size: 160%;
+    border: 0;
+    border-radius: 0px;
+    border-bottom: 3px solid rgb(0, 84, 149);
+    color: rgb(1, 85, 149);
+}
+
+.cls-page-2 .ui-content .cls-realname .cls-form-realname input[type="name"]:focus {
+    outline: none;
+}
+
+
+
+/* ------- 3rd Page -------- */
+/*****************************/
+/* ------------------- */
+.cls-page-3 .ui-content {
+    height: 100%;
+}
+.cls-page-3 .ui-content .cls-fbconnect {
+    width 60%;
+    height: auto;
+    margin: 50% 20% 30% 20%;
+    text-align: center;
+}
+
+.cls-page-3 .ui-content .cls-message-fbconnect {
+    text-align: center;
+}
+
+.cls-page-3 .ui-content .cls-message-fbconnect p {
+    margin: 0;
+    font-size: 150%;
+    font-weight: 200;
+    word-spacing: 6px;
+    letter-spacing: 5px;
+    color: rgb(0, 84, 149);
+}
+
+.cls-page-3 .ui-content .cls-message-fbconnect p:first-child {
+    margin: 25% 0 0 0;
+}
+
+.cls-page-3 .ui-content .cls-message-fbconnect p:last-of-type {
+    margin: 1% 0 0 0;
+}
+
+.cls-page-3 .ui-content .cls-fblogin {
+    width: 86%;
+    margin: 12% 7% 0 7%;
+}
+
+.cls-page-3 .ui-content .cls-fblogin .cls-form-fblogin .cls-fbconnect-submitbtn-fb,
+.cls-page-3 .ui-content .cls-fblogin .cls-form-fblogin .cls-fbconnect-submitbtn-manual {
+    margin: 30px 0 0 0;
+    height: 50px;
+    font-size: 150%;
+	padding: 0.6em 0;
+	display: block;
+	position: relative;
+	text-align: center;
+	overflow: hidden;
+	white-space: nowrap;
+	cursor: pointer;
+    background: transparent;
+    color: rgb(0, 84, 149);
+    font-weight: none;
+    word-spacing: 0.25em;
+    letter-spacing: 0.15em;
+    border: 3px solid rgb(0, 84, 149); 
+    border-radius: 25px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+    outline: none;
+}
+
+.cls-page-3 .ui-content .cls-fblogin .cls-form-fblogin .cls-fbconnect-submitbtn-fb:target,
+.cls-page-3 .ui-content .cls-fblogin .cls-form-fblogin .cls-fbconnect-submitbtn-manual:target {
+    background-color: transparent;
+    color: rgb(0, 84, 149);
+}
+
+.cls-page-3 .ui-content .cls-fblogin .cls-form-fblogin .cls-fbconnect-submitbtn-fb:active,
+.cls-page-3 .ui-content .cls-fblogin .cls-form-fblogin .cls-fbconnect-submitbtn-manual:active {
+    background-color: rgba(252, 247, 135, 0.58);
+    color: rgb(0, 84, 149);
+    border: 0;
+    -webkit-text-shadow: none;
+    text-shadow: none;
+}
+
+
+
+/* ------- 4th Page -------- */
+/*****************************/
+.cls-page-4 .ui-content {
+    height: 100%;
+}
+
+.cls-page-4 .ui-content .cls-message-yourfaveu {
+    margin: 30% 10% 0 10%;
+    text-align: center;
+    font-size: 160%;
+}
+.cls-page-4 .ui-content .cls-message-yourfaveu p {
+    word-spacing: 5px;
+    letter-spacing: 2px;
+    color: rgb(0, 84, 149);
+}
+
+.cls-page-4 .ui-content .cls-yourfaveu-logo {
+    position: relative;
+    margin: 10% 0;
+    text-align: center;
+}
+
+.cls-page-4 .ui-content .cls-yourfaveu {
+    position: relative;
+    width: 84%;
+    margin: 0 8%;
+    z-index: 5px;
+}
+
+.cls-page-4 .ui-content .cls-yourfaveu .cls-form-yourfaveu .ui-input-text input[type="name"],
+.cls-page-4 .ui-content .cls-yourfaveu .cls-form-yourfaveu .ui-input-text input[type="email"] {
+    background: transparent;
+    padding: 0;
+    height: 50px;
+    border: 0;
+    border-radius: 0px;
+    border-bottom: 3px solid rgb(0, 84, 149);
+    font-size: 160%;
+    outline: 0;
+    color: rgb(0, 84, 149);
+}
+
+.cls-page-4 .ui-content .cls-yourfaveu .cls-form-yourfaveu .ui-input-text input[type="name"] {
+    width: 92%;
+    margin: 0 4% 4% 4%;
+}
+
+.cls-page-4 .ui-content .cls-yourfaveu .cls-form-yourfaveu .ui-input-text input[type="email"] {
+    width: 92%;
+    margin: 0 4% 3% 4%;
+}
+
+/* --- General for Autocomplete menu --- */
+/*****************************************/
+.ui-autocomplete {
+    outline: none;
+    border: 0;
+    border-radius: 7px;
+}
+
+.ui-menu {
+    background: transparent;
+    z-index: 5;
+    border: 0;
+    outline: none;
+}
+
+.ui-menu .ui-menu-item {
+    color: rgb(0, 84, 149);
+    font-size: 130%;
+    font-weight: 600;
+    height: 35px;
+    border: 0;
+    outline: none;
+}
+/* --- ----------------------------- --- */
+/*****************************************/
+
+.cls-page-4 .ui-content .cls-yourfaveu .cls-form-yourfaveu .ui-btn {
+    margin: 30px 0 0 0;
+    height: 50px;
+    font-size: 150%;
+    padding: 0.8em 0;
+	position: relative;
+	text-align: center;
+	overflow: hidden;
+	white-space: nowrap;
+	cursor: pointer;
+    background-color: rgb(0, 84, 149);
+    color: white;
+    font-weight: none;
+    word-spacing: 0.25em;
+    letter-spacing: 0.15em;
+    border: 0;
+    border-radius: 25px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+    outline: none;
+}
+
+.cls-page-4 .ui-content .cls-yourfaveu .cls-form-yourfaveu .ui-btn:target {
+    background-color: rgb(0, 84, 149);
+    color: white;
+}
+
+.cls-page-4 .ui-content .cls-yourfaveu .cls-form-yourfaveu .ui-btn:active {
+    background-color: white;
+    color: rgb(0, 84, 149);
+}
+
+
+
+/* ------- 5th Page -------- */
+/*****************************/
+/* --- Two Text Statements --- */
+.cls-page-5 .ui-content .cls-yourfaveu-comment,
+.cls-page-5 .ui-content .cls-yourbuddy-comment {
+    position: center;
+    width: 90%;
+    height: 25px;
+    margin: 0 5%;
+    float: left;
+    font-size: 150%;
+    color: rgb(0, 84, 149);
+    position: relative;
+}
+
+.cls-page-5 .ui-content .cls-yourfaveu-comment p,
+.cls-page-5 .ui-content .cls-yourbuddy-comment p {
+    width: 100%;
+    margin: 0;
+    position: absolute;
+}
+
+.cls-page-5 .ui-content .cls-yourfaveu-comment {
+    margin-top: 16%;
+    margin-bottom: 0;
+}
+
+.cls-page-5 .ui-content .cls-yourbuddy-comment {
+    margin-top: 5%;
+    margin-bottom: 1%;
+}
+
+/* ---- Division Define ---- */
+.cls-page-5 .ui-content .cls-yourfaveu-div {
+    width: 86%;
+    margin: 2% 7% 4% 7%;
+    height: 65px;
+    border: 0;
+}
+
+.cls-page-5 .ui-content .cls-best-div0,
+.cls-page-5 .ui-content .cls-best-div1,
+.cls-page-5 .ui-content .cls-best-div2 {
+    width: 86%;
+    margin: 2% 7% 2% 7%;
+    height: 66px;
+    border: 0;
+}
+
+.cls-page-5 .ui-content .cls-best-div3 {
+    width: 86%;
+    margin: 2% 7% 2% 7%;
+    height: 66px;
+    border: 0;
+}
+
+.cls-page-5 .ui-content .cls-best-div0 .ui-block-a,
+.cls-page-5 .ui-content .cls-best-div1 .ui-block-a,
+.cls-page-5 .ui-content .cls-best-div2 .ui-block-a,
+.cls-page-5 .ui-content .cls-best-div3 .ui-block-a {
+    position: relative;
+    width: 66px;
+    height: 66px;
+}
+
+.cls-page-5 .ui-content .cls-best-div0 .ui-block-a .cls-smallbestimg0,
+.cls-page-5 .ui-content .cls-best-div1 .ui-block-a .cls-smallbestimg1,
+.cls-page-5 .ui-content .cls-best-div2 .ui-block-a .cls-smallbestimg2,
+.cls-page-5 .ui-content .cls-best-div3 .ui-block-a .cls-smallbestimg3 {
+    position: absolute;
+}
+
+.cls-page-5 .ui-content .cls-best-div0 .ui-block-a .cls-smallbestimg0 img,
+.cls-page-5 .ui-content .cls-best-div1 .ui-block-a .cls-smallbestimg1 img,
+.cls-page-5 .ui-content .cls-best-div2 .ui-block-a .cls-smallbestimg2 img,
+.cls-page-5 .ui-content .cls-best-div3 .ui-block-a .cls-smallbestimg3 img {
+    border-radius: 50%;
+    width: 60px !important;
+    height: 60px !important;
+    border: 2px solid rgb(0, 84, 149);
+}
+
+.cls-page-5 .ui-content .cls-best-div0 .ui-block-a .cls-smallbestbtn0, 
+.cls-page-5 .ui-content .cls-best-div1 .ui-block-a .cls-smallbestbtn1,
+.cls-page-5 .ui-content .cls-best-div2 .ui-block-a .cls-smallbestbtn2,
+.cls-page-5 .ui-content .cls-best-div3 .ui-block-a .cls-smallbestbtn3 {
+    position: relative;
+    background-color: rgb(0, 84, 149);
+    border-radius:50px;
+    display: inline-flex;
+    padding: 6px;
+    left: 41px;
+}
+
+.cls-page-5 .ui-content .cls-best-div0 .ui-block-a .cls-smallbestbtn0 img,
+.cls-page-5 .ui-content .cls-best-div1 .ui-block-a .cls-smallbestbtn1 img,
+.cls-page-5 .ui-content .cls-best-div2 .ui-block-a .cls-smallbestbtn2 img,
+.cls-page-5 .ui-content .cls-best-div3 .ui-block-a .cls-smallbestbtn3 img {
+    vertical-align: top;
+    width: 9px;
+    height: 9px;
+}
+
+.cls-page-5 .ui-content .cls-yourfaveu-div .cls-yourfaveu-blk1 {
+    width: 25%;
+    height: 65px;
+    border: 0;
+}
+
+.cls-page-5 .ui-content .cls-yourfaveu-div .cls-yourfaveu-blk2 {
+    width: 75%;
+    height: 65px;
+    border: 0;
+    word-wrap: break-word;
+    overflow: auto;
+}
+
+.cls-page-5 .ui-content .cls-yourfaveu-div .cls-yourfaveu-blk2 p {
+    margin: 0;
+}
+
+.cls-page-5 .ui-content .cls-yourfaveu-div .cls-yourfaveu-blk2 p.name_fvu {
+    font-size: 190%;
+}
+
+.cls-page-5 .ui-content .cls-yourfaveu-div .cls-yourfaveu-blk2 p.email_fvu {
+    font-size: 130%;
+}
+
+.cls-page-5 .ui-content .cls-yourfaveu-div,
+.cls-page-5 .ui-content .cls-best-div0,
+.cls-page-5 .ui-content .cls-best-div1,
+.cls-page-5 .ui-content .cls-best-div2,
+.cls-page-5 .ui-content .cls-best-div3 {
+    display: inline-block;
+}
+
+.cls-page-5 .ui-content .cls-best-div0 .ui-block-a,
+.cls-page-5 .ui-content .cls-best-div1 .ui-block-a,
+.cls-page-5 .ui-content .cls-best-div2 .ui-block-a,
+.cls-page-5 .ui-content .cls-best-div3 .ui-block-a {
+    width: 20%;
+    height: 60px;
+    border: 0;
+    color: rgb(0, 84, 149);
+}
+
+.cls-page-5 .ui-content .cls-best-div0 .ui-block-b,
+.cls-page-5 .ui-content .cls-best-div1 .ui-block-b,
+.cls-page-5 .ui-content .cls-best-div2 .ui-block-b,
+.cls-page-5 .ui-content .cls-best-div3 .ui-block-b {
+    width: 66%;
+    height: 60px;
+    border: 0;
+    overflow: auto;
+    word-wrap: break-word;
+    color: rgb(0, 84, 149);
+}
+
+.cls-page-5 .ui-content .cls-best-div0 .ui-block-b p,
+.cls-page-5 .ui-content .cls-best-div1 .ui-block-b p, 
+.cls-page-5 .ui-content .cls-best-div2 .ui-block-b p, 
+.cls-page-5 .ui-content .cls-best-div3 .ui-block-b p {
+    font-weight: 600;
+    font-size: 180%;
+    margin: 0.5em 0.2em 0.5em 0.6em;
+}
+
+.cls-page-5 .ui-content .cls-best-div0 .ui-block-c,
+.cls-page-5 .ui-content .cls-best-div1 .ui-block-c,
+.cls-page-5 .ui-content .cls-best-div2 .ui-block-c,
+.cls-page-5 .ui-content .cls-best-div3 .ui-block-c {
+    width: 14%;
+    height: 60px;
+    border: 0;
+}
+
+.cls-page-5 .ui-content .cls-best-div0 .cls-best-btn-form0 button.ui-btn-icon-left:after,
+.cls-page-5 .ui-content .cls-best-div1 .cls-best-btn-form1 button.ui-btn-icon-left:after,
+.cls-page-5 .ui-content .cls-best-div2 .cls-best-btn-form2 button.ui-btn-icon-left:after,
+.cls-page-5 .ui-content .cls-best-div3 .cls-best-btn-form3 button.ui-btn-icon-left:after {
+    content: "";
+/*	position: absolute;*/
+	display: block;
+	width: 33px;
+	height: 33px;
+    border: 2px solid rgb(118, 146, 168);
+/*    border-radius: 11.5px;*/
+/*    background-color: 					rgba(255, 128, 0, 0.84);*/
+    background-color: 				transparent;
+	background-position: center;
+	background-repeat: no-repeat;
+	-webkit-border-radius: 2em;
+	border-radius: 2em;
+}
+
+.cls-page-5 .ui-content .cls-best-div0 .cls-best-btn-form0,
+.cls-page-5 .ui-content .cls-best-div1 .cls-best-btn-form1,
+.cls-page-5 .ui-content .cls-best-div2 .cls-best-btn-form2,
+.cls-page-5 .ui-content .cls-best-div3 .cls-best-btn-form3 {
+    padding: 1.2em 0 0.3em 0.2em;
+    top: 50%;
+}
+
+.cls-page-5 .ui-content .cls-best-div0 .cls-best-btn-form0 button,
+.cls-page-5 .ui-content .cls-best-div1 .cls-best-btn-form1 button,
+.cls-page-5 .ui-content .cls-best-div2 .cls-best-btn-form2 button,
+.cls-page-5 .ui-content .cls-best-div3 .cls-best-btn-form3 button {
+    background: transparent;
+    border: none;
+    padding: 0 0.1em 0 0.1em;
+    top: 50%;
+}
+    
+
+/**** submit button ****/
+/***********************/
+.cls-page-5 .ui-content .cls-best-addsubmit-div {
+    width: 94%;
+    margin: 8% 3% 2% 3%;
+/*    height: 50px;*/
+    height: 50px;
+    border: 0;
+    overflow: visible;
+}
+
+.cls-page-5 .ui-content .cls-best-addsubmit-div .cls-best-addsubmit-blk1 {
+    width: 85%;
+    height: 50px;
+    border: 0;
+    overflow: visible;
+}
+
+.cls-page-5 .ui-content .cls-best-addsubmit-div .cls-best-addsubmit-blk2 {
+    width: 15%;
+    height: 50px;
+    border: 0;
+}
+
+.cls-page-5 .ui-content .cls-best-addsubmit-div .cls-best-addsubmit-blk1 .cls-form-bestenemy {
+    margin-right: 0;
+/*    background: transparent;*/
+    margin-top: 0;
+    width: 85%;
+/*    height: auto;*/
+    height: 42px;
+    border: 2px solid rgb(0, 84, 149);
+    border-radius: 23px;
+    color: rgb(0, 84, 149);
+    font-size: 180%;
+    padding-left: 10px;
+    outline: none;
+}
+
+.cls-page-5 .ui-content .cls-best-addsubmit-div .cls-best-addsubmit-blk1 .cls-form-bestenemy input {
+    position: absolute;
+	margin: 0 0;
+	border: none;
+    background: transparent;
+    height: 42px;
+    width: 76%;
+    color: rgb(0, 84, 149);
+    outline: none;
+    font-size: 20px;
+    padding: 0;
+}
+
+.cls-page-5 .ui-content .cls-best-addsubmit-div .cls-best-addsubmit-blk1 .cls-form-bestenemy .ui-btn-icon-left{
+    background: transparent;
+    border: 0px;
+    text-align: center;
+/*    border: 2px solid rgb(0, 84, 149);*/
+    position: relative;
+    display: inline-flex;
+    top: 50%;
+    width: 42px;
+    height: 42px;
+    left: 88%;
+    padding: 0;
+/*    padding-top: 3px;*/
+}
+
+.cls-page-5 .ui-content .cls-best-addsubmit-div .cls-best-addsubmit-blk1 .cls-form-bestenemy .ui-btn-icon-left:after {
+    position: inline-flex;
+	content: "";
+	display: block;
+	width: 32px;
+	height: 32px;
+    text-align: center;
+    background-color: rgb(0, 84, 149);
+	background-position: center;
+	background-repeat: no-repeat;
+	-webkit-border-radius: 16px;
+	border-radius: 16px;
+    top: 0%;
+}
+
+/* add submit icon */
+.cls-page-5 .ui-content .cls-best-addsubmit-div .cls-best-addsubmit-blk2 .cls-best-btn-form {
+    width: 100%;
+    height: 46px;
+}
+
+.cls-page-5 .ui-content .cls-best-addsubmit-div .cls-best-addsubmit-blk2 .cls-best-btn-form .cls-btn-best-submit {
+    height: 46px;
+}
+
+.cls-page-5 .ui-content .cls-best-addsubmit-div .cls-best-addsubmit-blk2 .cls-best-btn-form button {
+    background: transparent;
+    border: none;
+    padding: 0 0 0 1.2em;
+    top: 0;
+}
+
+.cls-page-5 .ui-content .cls-best-addsubmit-div .cls-best-addsubmit-blk2 .cls-best-btn-form button.ui-btn-icon-left {
+    padding-left: 1.4em;
+}
+
+.cls-page-5 .ui-content .cls-best-addsubmit-div .cls-best-addsubmit-blk2 .cls-best-btn-form button.ui-btn-icon-left:after {
+/*    position: absolute;*/
+    content: "";
+	display: block;
+	width: 33px;
+	height: 33px;
+    top: 0%;
+	margin-top: 0.8px;
+    background-color: 					rgb(0, 84, 149);
+	background-color: 					rgb(0, 84, 149);
+	background-position: center center;
+	background-repeat: no-repeat;
+	-webkit-border-radius: 2em;
+	border-radius: 2em;
+     
+}
+
+.cls-page-5 .ui-content .cls-best-addsubmit-div .cls-best-addsubmit-blk1 .cls-form-bestenemy .ui-listview > .ui-li-static {
+    padding: 2% 5%;
+    font-weight: 600;
+    background-color: transparent;
+    box-shadow: inset;
+    border: 0;
+    color: rgb(0, 84, 149);
+    font-size: 140%;
+    overflow: scroll;
+    text-transform: none;
+}
+
+
+
+/* ------- 6th Page -------- */
+/*****************************/
+.cls-page-6 .ui-content {
+    height: 100%;
+    overflow: hidden;
+}
+
+.cls-page-6 .ui-content .cls-flag-logo {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    margin: 30% 0 0 0;
+    text-align: center;
+/*    z-index: 5px;*/
+}
+
+.cls-page-6 .ui-content .cls-message-flag {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin-top: 3%;
+    text-align: center;
+    color: rgb(0, 84, 149);
+}
+
+.cls-page-6 .ui-content .cls-message-flag p {
+    font-size: 140%;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    letter-spacing: 2px;
+}
+
+.cls-page-6 .ui-content .cls-message-card {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin-top: 20px;
+    text-align: center;
+    color: rgb(0, 84, 149);
+/*    z-index: 5px;*/
+}
+
+.cls-page-6 .ui-content .cls-message-card p {
+    font-size: 140%;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    letter-spacing: 2px;
+    word-spacing: 4px;
+}
+
+.cls-page-6 .ui-content .cls-envelopecard {
+    position: relative;
+/*    width: 1600px;*/
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+    top: -130px;
+    height: 440px;
+    display: box;
+    display: -webkit-box;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard1,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard2,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard3,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard4,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard5 {
+    position: relative;
+    width: 300px;
+/*    height: 440px;*/
+    height: 400px;
+    margin: 10px;
+/*    text-align: center;*/
+    background-color: transparent;
+    display: inline-grid;
+}
+
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard1 {
+    float: left;
+}
+
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard1 .cls-invite11 {
+    position: absolute;
+    top: 190px;
+/*    top: 220px;*/
+    left: 0;
+    width: 300px;
+    height: 200px;
+/*    height: 220px;*/
+}
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard2 .cls-invite22,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard3 .cls-invite33,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard4 .cls-invite44,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard5 .cls-invite55 {
+    position: absolute;
+    top: 190px;
+/*    top: 220px;*/
+    left: 0;
+    width: 300px;
+    height: 180px;
+/*    height: 200px;*/
+    
+}
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard1 .cls-outer11,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard2 .cls-outer22,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard3 .cls-outer33,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard4 .cls-outer44,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard5 .cls-outer55 {
+    position: absolute;
+    top: 190px;
+/*    top: 210px;*/
+    left: 0;
+    width: 300px;
+    height: 200px;
+/*    height: 220px;*/
+}
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard1 .cls-bot-left-right11,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard1 .cls-cover11,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard2 .cls-bot-left-right22,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard2 .cls-cover22,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard3 .cls-bot-left-right33,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard3 .cls-cover33,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard4 .cls-bot-left-right44,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard4 .cls-cover44,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard5 .cls-bot-left-right55,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard5 .cls-cover55 {
+    position: absolute;
+    top: 200px;
+/*    top: 220px;*/
+    left: 0;
+    width: 300px;
+    height: 200px;
+/*    height: 220px;*/
+}
+
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard1 .cls-outerimg11,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard1 .cls-botleftrightimg11,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard1 .cls-coverimg11,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard2 .cls-outerimg22,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard2 .cls-botleftrightimg22,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard2 .cls-coverimg22,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard3 .cls-outerimg33,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard3 .cls-botleftrightimg33,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard3 .cls-coverimg33,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard4 .cls-outerimg44,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard4 .cls-botleftrightimg44,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard4 .cls-coverimg44,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard5 .cls-outerimg55,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard5 .cls-botleftrightimg55,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard5 .cls-coverimg55 {
+    text-align: center;
+    vertical-align: middle;
+    width: 300px;
+    height: 200px;
+/*    height: 220px;*/
+    left: 0;
+}
+
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard1 .cls-inviteimg11 {
+    text-align: center;
+    vertical-align: middle;
+    width: 280px;
+    height: 190px;
+/*    height: 200px;*/
+/*    height: 220px;*/
+    left: 0;
+}
+
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard2 .cls-inviteimg22,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard3 .cls-inviteimg33,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard4 .cls-inviteimg44,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard5 .cls-inviteimg55 {
+    text-align: center;
+    vertical-align: middle;
+    width: 280px;
+/*    height: 200px;*/
+    height: 180px;
+    left: 0;
+}
+
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard1 .cls-inner11,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard2 .cls-inner22,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard3 .cls-inner33,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard4 .cls-inner44,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard5 .cls-inner55 {
+    position: absolute;
+    display: none;
+    left: 0;
+    top: 0;
+    width: 300px;
+    height: 200px;
+/*    height: 220px;*/
+    z-index: -1px;
+/*    overflow: visible;*/
+}
+
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard1 .cls-innerimg11,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard2 .cls-innerimg22,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard3 .cls-innerimg33,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard4 .cls-innerimg44,
+.cls-page-6 .ui-content .cls-envelopecard .cls-envelopecard5 .cls-innerimg55 {
+    text-align: center;
+    vertical-align: middle;
+    width: 300px;
+    height: 200px;
+/*    height: 220px;*/
+}
+
+.cls-page-6 .ui-content .cls-cardbtn-div {
+    position: absolute;
+    top: 600px;
+    width: 90%;
+    height: 50px;
+    margin: 10px 18px 0 18px;
+    color: rgb(0, 84, 149);
+    background: transparent;
+}
+
+.cls-page-6 .ui-content .cls-cardbtn-div .cls-form-cardbtn {
+    width: 100%;
+    height: 50px;
+    color: rgb(0, 84, 149);
+    outline: none;
+}
+
+.cls-page-6 .ui-content .cls-cardbtn-div .cls-form-cardbtn .cls-submitbtn-card {
+    width: 100%;
+    height: 50px;
+    font-size: 18px;
+    padding: 0.6em 0;
+    text-align: center;
+    position: relative;
+
+	overflow: hidden;
+	white-space: nowrap;
+	cursor: pointer;
+
+    background-color: transparent;
+    color: rgb(0, 84, 149);
+    font-weight: none;
+    word-spacing: 0.25em;
+    letter-spacing: 0.15em;
+    border: 3px solid rgb(0, 84, 149);
+    border-radius: 25px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+    outline: none;
+}
+
+.cls-page-6 .ui-content .cls-cardbtn-div .cls-form-cardbtn .cls-submitbtn-card:target {
+    background-color: rgb(0, 84, 149);
+    color: white;
+}
+
+.cls-page-6 .ui-content .cls-cardbtn-div .cls-form-cardbtn .cls-submitbtn-card:active {
+    background-color: rgba(252, 247, 135, 0.58);
+    color: rgb(0, 84, 149);
+    border: 0;
+    outline: none;
+    -webkit-text-shadow: none;
+    text-shadow: none;
+}
+
+
+
+/* ------- 61th Page -------- */
+/*****************************/
+.cls-page-61 .ui-content61 {
+    height: 100%;
+    position: relative;
+    overflow-y: hidden;
+}
+
+.cls-page-61 .ui-content61 .cls-message-confirm {
+    margin: 13% 10% 5% 10%;
+    text-align: center;
+    font-size: 160%;
+    color: rgb(0, 84, 149);
+}
+
+.cls-page-61 .ui-content61 .cls-message-confirm p {
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+.cls-page-61 .ui-content61 .cls-img-confirm {
+    margin: 0 10% 0 10%;
+    text-align: center;
+}
+
+.cls-page-61 .ui-content61 .cls-img-confirm img {
+    width: 220px;
+    height: 220px;
+}
+
+.cls-page-61 .ui-content61 .cls-text-confirm {
+    width: 100%;
+    height: 350px;
+    background: -webkit-linear-gradient(rgb(230, 190, 1), rgb(249, 255, 111), rgb(201, 166, 0)); /* For Safari 5.1 to 6.0 */
+    background: linear-gradient(rgb(230, 190, 1), rgb(249, 255, 111), rgb(201, 166, 0)); /* Standard syntax */
+    overflow-y: auto;
+}
+
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-yourfaveu-confirm p {
+    margin: 3% 0 0 0;
+}
+
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-yourfaveu-confirm-div .ui-block-b #id-name {
+    margin: 0;
+    padding: 0;
+    padding-top: 6px;
+    padding-left: 5px;
+    font-size: 24px;
+}
+
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-yourfaveu-confirm-div .ui-block-b #id-email {
+    margin: 0;
+    padding: 0;
+    padding-left: 5px;
+    font-size: 19px;
+}
+
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-yourfaveu-confirm,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-yourfaveu-confirm-div0,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-yourfaveu-confirm-div,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-yourbuddy-confirm-div,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div0,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div1,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div2,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div3,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div4,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div5 {
+    width: 86%;
+    margin: 0 7%;
+    left: 0;
+    color: rgb(0, 84, 149);
+    font-size: 140%;
+}
+
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-yourbuddy-confirm-div .ui-block-a,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-yourfaveu-confirm-div0 .ui-block-a {
+    height: 35px;
+    width: 70%;
+    margin: 2% 0 2% 0;
+    font-size: 19px;
+}
+
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-yourbuddy-confirm-div .ui-block-a p,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-yourfaveu-confirm-div0 .ui-block-a p {
+    padding-top: 5px;
+    margin: 0;
+}
+
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-yourbuddy-confirm-div .ui-block-b,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-yourfaveu-confirm-div0 .ui-block-b {
+    height: 35px;
+    width: 20%;
+    margin: 1% 5% 1% 5%;
+}
+
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-yourbuddy-confirm-div .ui-block-b .cls-editbtn-confirm,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-yourfaveu-confirm-div0 .ui-block-b .cls-editbtn-confirm {
+    font-size: 100%;
+    padding: 0;
+    height: 35px;
+	position: relative;
+	text-align: center;
+	white-space: nowrap;
+	cursor: pointer;
+    background-color: transparent;
+    color: rgb(0, 84, 149);
+    font-weight: none;
+    word-spacing: 0.2em;
+    letter-spacing: 0.1em;
+    border: 0;
+    border: 3px solid rgb(0, 84, 149);
+    border-radius: 18px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+    outline: none;
+}
+
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-yourfaveu-confirm-div .ui-block-a,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div0 .ui-block-a,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div1 .ui-block-a,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div2 .ui-block-a,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div3 .ui-block-a {
+    width: 20%;
+    height: 66px;
+    border: 0;
+    color: rgb(0, 84, 149);
+    margin-bottom: 5px;
+}
+
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div4 .ui-block-a,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div5 .ui-block-a {
+    width: 20%;
+    height: 50px;
+    border: 0;
+    color: rgb(0, 84, 149);
+    margin-bottom: 5px;
+}
+
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-yourfaveu-confirm-div .ui-block-b,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div0 .ui-block-b,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div1 .ui-block-b,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div2 .ui-block-b,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div3 .ui-block-b,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div4 .ui-block-b,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div5 .ui-block-b {
+    width: 80%;
+    height: 66px;
+    border: 0;
+    color: rgb(0, 84, 149);
+    margin-bottom: 5px;
+    padding-left: 10px;
+    word-wrap: break-word;
+    font-size: 16px;
+}
+
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div4 .ui-block-b,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div5 .ui-block-b {
+    width: 80%;
+    height: 50px;
+    border: 0;
+    color: rgb(0, 84, 149);
+    margin-bottom: 5px;
+    padding-left: 10px;
+    word-wrap: break-word;
+}
+
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div0 .ui-block-a .cls-smallbestimg0 img,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div1 .ui-block-a .cls-smallbestimg1 img,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div2 .ui-block-a .cls-smallbestimg2 img,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div3 .ui-block-a .cls-smallbestimg3 img,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div4 .ui-block-a .cls-smallbestimg4 img,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div5 .ui-block-a .cls-smallbestimg5 img {
+    border-radius: 50%;
+    width: 60px !important;
+    height: 60px !important;
+    border: 2px solid rgb(0, 84, 149);
+}
+
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-yourfaveu-confirm-div .ui-block-b p,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div0 .ui-block-b p,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div1 .ui-block-b p,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div2 .ui-block-b p,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div3 .ui-block-b p,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div4 .ui-block-b p,
+.cls-page-61 .ui-content61 .cls-text-confirm .cls-best-div5 .ui-block-b p {
+    font-size: 22px;
+    padding: 10px 0 6px 5px;
+    margin: 0;
+}
+
+.cls-page-61 .ui-content61 .cls-confirmbtn-div {
+    position: absolute;
+    width: 100%;
+    height: 100px;
+    background: rgb(243, 234, 4);
+    left: 0;
+    top: 600px;
+}
+
+.cls-page-61 .ui-content61 .cls-confirmbtn-div .cls-form-confirmbtn {
+    width: 80%;
+    margin: 0 10% 0 10%;
+}
+
+.cls-page-61 .ui-content61 .cls-confirmbtn-div .cls-form-confirmbtn button {
+    margin: 15px 0 0 0;
+    height: 50px;
+    font-size: 150%;
+    padding: 0.8em 0;
+	position: relative;
+	text-align: center;
+	overflow: hidden;
+	white-space: nowrap;
+	cursor: pointer;
+    background-color: rgb(0, 84, 149);
+    color: white;
+    font-weight: none;
+    word-spacing: 0.25em;
+    letter-spacing: 0.15em;
+    border: 0;
+    border-radius: 26px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+    outline: none;
+}
+
+
+/* ------- 7th Page -------- */
+/*****************************/
+.cls-page-7 .ui-content {
+    height: 100%;
+    position: relative;
+}
+
+.cls-page-7 .ui-content .cls-carddeliver-logo {
+    width: 90%;
+    margin: 10% 5% 0 5%;
+    position: relative;
+    height: 440px;
+    text-align: center;
+    vertical-align: middle;
+    z-index: 10;
+}
+
+.cls-page-7 .ui-content .cls-carddeliver-logo .cls-envelopecard {
+    width: 300px;
+    position: relative;
+    text-align: center;
+    vertical-align: middle;
+    height: 440px;
+}
+
+.cls-page-7 .ui-content .cls-carddeliver-logo .cls-invite {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    margin-left: -150px;
+    width: 300px;
+    height: 220px;
+}
+
+.cls-page-7 .ui-content .cls-carddeliver-logo .cls-outer {
+    position: absolute;
+    display: none;
+    top: 210px;
+    left: 50%;
+    margin-left: -150px;
+    width: 300px;
+    height: 220px;
+}
+.cls-page-7 .ui-content .cls-carddeliver-logo .cls-bot-left-right,
+.cls-page-7 .ui-content .cls-carddeliver-logo .cls-cover {
+    position: absolute;
+    top: 220px;
+    left: 50%;
+    margin-left: -150px;
+    width: 300px;
+    height: 220px;
+}
+.cls-page-7 .ui-content .cls-carddeliver-logo .cls-outerimg,
+.cls-page-7 .ui-content .cls-carddeliver-logo .cls-botleftrightimg,
+.cls-page-7 .ui-content .cls-carddeliver-logo .cls-coverimg {
+    text-align: center;
+    vertical-align: middle;
+    width: 300px;
+    height: 220px;
+    left: 0;
+}
+.cls-page-7 .ui-content .cls-carddeliver-logo .cls-invite img {
+    text-align: center;
+    vertical-align: middle;
+    width: 280px;
+    height: 220px;
+    left: 0;
+}
+.cls-page-7 .ui-content .cls-carddeliver-logo .cls-inner {
+    position: absolute;
+    left: 50%;
+    margin-left: -150px;
+    top: 0;
+    width: 300px;
+    height: 220px;
+    z-index: -1px;
+}
+.cls-page-7 .ui-content .cls-carddeliver-logo .cls-innerimg {
+    text-align: center;
+    vertical-align: middle;
+    width: 300px;
+    height: 220px;
+    left: 0;
+}
+
+.cls-page-7 .ui-content .cls-truck-logo {
+    position: fixed;
+    width: 70px;
+    height: 40px;
+    left: 50%;
+    top: 40%;
+    margin-left: -35px; /*half the width*/
+}
+
+.cls-page-7 .ui-content .cls-truck-logo img {
+    width: 70px;
+    height: 40px;
+}
+ 
+.cls-page-7 .ui-content .cls-message-deliver {
+    position: fixed;
+    width: 90%;
+    margin: 0% 5% 20% 5%;
+    height: 25px;
+    text-align: center;
+    font-size: 19px;
+    top: 46%;
+    color: rgb(0, 84, 149);
+}
+
+
+
+/* ------- 8th Page -------- */
+/*****************************/
+.cls-page-8 .ui-content .cls-faveuend-logo {
+    width: 40%;
+    height: 140px;
+    margin: 50% 30% 0 30%;
+    text-align: center;
+}
+
+.cls-page-8 .ui-content .cls-faveuend-logo img {
+    width: 110px;
+    height: 145px;
+}
+
+.cls-page-8 .ui-content .cls-message-faveuend {
+    margin-top: 15%;
+    text-align: center;
+    font-size: 23px;
+    color: rgb(0, 84, 149);
+}
+
+.cls-page-8 .ui-content .cls-endbtn-div {
+    width: 60%;
+    height: 50px;
+    margin-top: 20px;
+    margin-right: 20%;
+    margin-left: 20%;
+    background: transparent;
+}
+
+.cls-page-8 .ui-content .cls-endbtn-div .cls-form-endbtn {
+    width: 100%;
+    height: 50px;
+}
+
+.cls-page-8 .ui-content .cls-endbtn-div .cls-form-endbtn .cls-submitbtn-end {
+    width: 100%;
+    height: 44px;
+    font-size: 18px;
+    padding: 0.5em 0;
+    text-align: center;
+    position: relative;
+
+	overflow: hidden;
+	white-space: nowrap;
+	cursor: pointer;
+
+    background-color: transparent;
+    color: rgb(0, 84, 149);
+    font-weight: none;
+    word-spacing: 0.25em;
+    letter-spacing: 0.15em;
+    border: 3px solid rgb(0, 84, 149);
+    border-radius: 2em;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+    outline: none;
+}
+
+.cls-page-8 .ui-content .cls-endbtn-div .cls-form-endbtn .cls-submitbtn-end:target {
+    background-color: transparent;
+    color: rgb(0, 84, 149);
+}
+
+.cls-page-8 .ui-content .cls-endbtn-div .cls-form-endbtn .cls-submitbtn-end:active {
+    background-color: rgb(0, 84, 149);
+    color: white;
+    border: 0;
+    -webkit-text-shadow: none;
+    text-shadow: none;
+}
+
+
+
+/* ------- FAIL Page -------- */
+/*****************************/
+.cls-page-fail .ui-content {
+    height: 100%;
+}
+.cls-page-fail .ui-content .cls-message-fail {
+    margin-top: 40%;
+    text-align: center;
+    font-size: 19px;
+    word-spacing: 4px;
+    letter-spacing: 2px;
+    color: rgb(0, 84, 149);
+}
+
+.cls-page-fail .ui-content .cls-yourfaveu-logo {
+    margin-top: 10%;
+    text-align: center;
+}
+
+.cls-page-fail .ui-content .cls-disconnect-logo {
+    margin: 0;
+    text-align: center;
+}
+
+.cls-page-fail .ui-content .cls-usericon-logo {
+    margin: 0;
+    text-align: center;
+}
+
+.cls-page-fail .ui-content .cls-usericon-logo img {
+    border-radius: 50%;
+    width: 60px !important;
+    height: 60px !important;
+    border: 4px solid rgb(0, 84, 149);
+}
+
+.cls-page-fail .ui-content .cls-failbtn-div {
+    width: 90%;
+    height: 44px;
+    margin-top: 50px;
+    margin-right: 5%;
+    margin-left: 5%;
+    background: rgb(0, 84, 149);
+    border: 3px solid rgb(0, 84, 149);
+    border-radius: 2em;
+}
+
+.cls-page-fail .ui-content .cls-failbtn-div .cls-form-failbtn {
+    width: 100%;
+    height: 44px;
+}
+
+.cls-page-fail .ui-content .cls-failbtn-div .cls-form-failbtn .cls-submitbtn-fail {
+    width: 100%;
+    height: 44px;
+    font-size: 16px;
+    padding: 0.6em 0;
+    text-align: center;
+    position: relative;
+
+	overflow: hidden;
+	white-space: nowrap;
+	cursor: pointer;
+
+    background-color: rgb(0, 84, 149);
+    color: white;
+    font-weight: none;
+    word-spacing: 0.25em;
+    letter-spacing: 0.15em;
+    border: 3px solid rgb(0, 84, 149);
+    border-radius: 2em;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+    outline: none;
+}
+
+.cls-page-fail .ui-content .cls-failbtn-div .cls-form-failbtn .cls-submitbtn-fail:target {
+    background-color: rgb(0, 84, 149);
+    color: white;
+}
+
+.cls-page-fail .ui-content .cls-failbtn-div .cls-form-failbtn .cls-submitbtn-fail:active {
+    background-color: rgba(252, 247, 135, 0.58);
+    color: rgb(0, 84, 149);
+    border: 0;
+    -webkit-text-shadow: none;
+    text-shadow: none;
+}
+
+.cls-page-fail .ui-content .cls-message-fail2 {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 15px;
+    word-spacing: 2px;
+    letter-spacing: 1px;
+    color: rgb(0, 84, 149);
+}
+
+
+
+/* ------- SUCCESS Page -------- */
+/*********************************/
+.cls-page-success .ui-content {
+    position: relative;
+    height: 100%;
+}
+.cls-page-success .ui-content .cls-successshine-img1 {
+    position: absolute;
+    left: 0;
+    top: 50px;
+}
+.cls-page-success .ui-content .cls-successshine-img2 {
+    position: absolute;
+    left: 0;
+    top: 320px;
+}
+.cls-page-success .ui-content .cls-successshine-img3 {
+    position: absolute;
+    right: 0;
+    top: 160px;
+}
+.cls-page-success .ui-content .cls-successshine-img4 {
+    position: absolute;
+    right: 0;
+    top: 280px;
+}
+.cls-page-success .ui-content .cls-successshine-img5 {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.cls-page-success .ui-content .cls-message-success {
+    position: relative;
+    margin-top: 40%;
+    text-align: center;
+    font-size: 19px;
+    word-spacing: 4px;
+    letter-spacing: 2px;
+    color: rgb(0, 84, 149);
+}
+
+.cls-page-success .ui-content .cls-message-success p {
+    margin: 0%;
+}
+
+.cls-page-success .ui-content .cls-yourfaveu-logoS {
+    margin-top: 10%;
+    text-align: center;
+}
+
+.cls-page-success .ui-content .cls-connect-logo {
+    margin: 0;
+    text-align: center;
+}
+
+.cls-page-success .ui-content .cls-usericon-logoS {
+    margin: 0;
+    text-align: center;
+}
+
+.cls-page-success .ui-content .cls-usericon-logoS img {
+    border-radius: 50%;
+    width: 60px !important;
+    height: 60px !important;
+    border: 4px solid rgb(0, 84, 149);
+}
+
+.cls-page-success .ui-content .cls-successbtn-div {
+    width: 90%;
+    height: 44px;
+    margin-top: 70px;
+    margin-right: 5%;
+    margin-left: 5%;
+    background: rgb(0, 84, 149);
+    border: 3px solid rgb(0, 84, 149);
+    border-radius: 2em;
+}
+
+.cls-page-success .ui-content .cls-successbtn-div .cls-form-successbtn {
+    width: 100%;
+    height: 44px;
+}
+
+.cls-page-success .ui-content .cls-successbtn-div .cls-form-successbtn .cls-submitbtn-success {
+    width: 100%;
+    height: 44px;
+    font-size: 16px;
+    padding: 0.6em 0;
+    text-align: center;
+    position: relative;
+
+	overflow: hidden;
+	white-space: nowrap;
+	cursor: pointer;
+
+    background-color: rgb(0, 84, 149);
+    color: white;
+    font-weight: none;
+    word-spacing: 0.25em;
+    letter-spacing: 0.15em;
+    border: 3px solid rgb(0, 84, 149);
+    border-radius: 2em;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+    outline: none;
+}
+
+.cls-page-success .ui-content .cls-successbtn-div .cls-form-successbtn .cls-submitbtn-success:target {
+    background-color: rgb(0, 84, 149);
+    color: white;
+}
+
+.cls-page-success .ui-content .cls-successbtn-div .cls-form-successbtn .cls-submitbtn-success:active {
+    background-color: rgba(252, 247, 135, 0.58);
+    color: rgb(0, 84, 149);
+    border: 0;
+    -webkit-text-shadow: none;
+    text-shadow: none;
+}
+
+
+
+/* ------- SUCCESS1 Page -------- */
+/*****************************/
+.cls-page-success1 .ui-content {
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.cls-page-success1 .ui-content .cls-successshine-img1 {
+    position: absolute;
+    left: 0;
+    top: 30px;
+}
+.cls-page-success1 .ui-content .cls-successshine-img2 {
+    position: absolute;
+    left: 0;
+    top: 270px;
+}
+.cls-page-success1 .ui-content .cls-successshine-img4 {
+    position: absolute;
+    right: 0;
+    top: 260px;
+}
+.cls-page-success1 .ui-content .cls-successshine-img5 {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.cls-page-success1 .ui-content .cls-message-success1 {
+    position: relative;
+    width: 88%;
+    margin: 30% 8% 5% 8%;
+    text-align: center;
+    color: rgb(0, 84, 149);
+    word-spacing: 4px;
+    letter-spacing: 2px;
+}
+
+.cls-page-success1 .ui-content .cls-image-success1 {
+    position: relative;
+    width: 80%;
+/*    height: 64px;*/
+    margin: 15% 10% 8% 10%;
+    text-align: center;
+}
+
+.cls-page-success1 .ui-content .cls-image-success1 img {
+    height: 100px;
+    width: 100px;
+}
+
+.cls-page-success1 .ui-content .cls-message-success2 {
+    position: relative;
+    width: 80%;
+    height: 50px;
+    margin: 5% 10% 5% 10%;
+    text-align: center;
+    color: rgb(0, 84, 149);
+    letter-spacing: 2px;
+    word-spacing: 4px;
+    font-size: 140%;
+}
+
+.cls-page-success1 .ui-content .cls-message-success1 p {
+    margin-top: 3px;
+    margin-bottom: 2px;
+    height: 30px;
+}
+
+.cls-page-success1 .ui-content .cls-success1cardbtn-div0, 
+.cls-page-success1 .ui-content .cls-success1cardbtn-div1 {
+    width: 84%;
+    height: 60px;
+    margin-left: 8%;
+    margin-right: 8%;
+/*    background: rgb(0, 84, 149);*/
+}
+.cls-page-success1 .ui-content .cls-success1cardbtn-div0 {
+    margin-top: 70px;
+}
+.cls-page-success1 .ui-content .cls-success1cardbtn-div1 {
+    margin-top: 20px;
+}
+
+.cls-page-success1 .ui-content .cls-success1cardbtn-div0 .cls-form-success1cardbtn0,
+.cls-page-success1 .ui-content .cls-success1cardbtn-div1 .cls-form-success1cardbtn1 {
+    width: 100%;
+    height: 60px;
+    outline: none;
+}
+
+.cls-page-success1 .ui-content .cls-success1cardbtn-div0 .cls-form-success1cardbtn0 .cls-submitbtn-success10,
+.cls-page-success1 .ui-content .cls-success1cardbtn-div1 .cls-form-success1cardbtn1 .cls-submitbtn-success11 {
+    width: 100%;
+    height: 60px;
+    font-size: 15px;
+/*    padding: 1.3em 0em 1.3em 3em;*/
+    text-align: center;
+    position: relative;
+
+	overflow: hidden;
+	white-space: nowrap;
+	cursor: pointer;
+
+    background-color: rgb(0, 84, 149);
+    color: white;
+    font-weight: none;
+    word-spacing: 0.25em;
+    letter-spacing: 0.15em;
+    border: none;
+    border-radius: 35px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+    outline: none;
+}
+
+.cls-page-success1 .ui-content .cls-success1cardbtn-div0 .cls-form-success1cardbtn0 .cls-submitbtn-success10 img {
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    top: 15px;
+    left: 16px;
+}
+
+.cls-page-success1 .ui-content .cls-success1cardbtn-div1 .cls-form-success1cardbtn1 .cls-submitbtn-success11 img {
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    top: 15px;
+    left: 15px;
+}
+
+.cls-page-success1 .ui-content .cls-success1cardbtn-div0 .cls-form-success1cardbtn0 .cls-submitbtn-success10 {
+    padding: 1.3em 0em 1.3em 1em;
+}
+
+.cls-page-success1 .ui-content .cls-success1cardbtn-div1 .cls-form-success1cardbtn1 .cls-submitbtn-success11 {
+    padding: 1.3em 0em 1.3em 2.8em;
+/*    padding-bottom: 30px;*/
+}
+
+/*
+.cls-page-success1 .ui-content .cls-success1cardbtn-div .cls-form-success1cardbtn .cls-submitbtn-success1:target {
+    background-color: transparent;
+    color: rgb(0, 84, 149);
+}
+
+.cls-page-success1 .ui-content .cls-success1cardbtn-div .cls-form-success1cardbtn .cls-submitbtn-success1:active {
+    background-color: rgb(0, 84, 149);
+    color: white;
+    border: 0;
+    outline: none;
+    -webkit-text-shadow: none;
+    text-shadow: none;
+}
+*/
+
+
+
+/* ------- AVATAR Page -------- */
+/*********************************/
+.cls-page-avatar .ui-content {
+    height: 100%;
+}
+.cls-page-avatar .ui-content .cls-avatar-comment {
+    margin-top: 15%;
+    text-align: center;
+    font-size: 17px;
+    word-spacing: 4px;
+    letter-spacing: 2px;
+    color: rgb(0, 84, 149);
+}
+
+.cls-page-avatar .ui-content .cls-avatar-div {
+    margin-top: 5%;
+    text-align: center;
+}
+
+.cls-page-avatar .ui-content .cls-avatar-div .cls-1-1,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-1-2,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-1-3,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-1-4,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-2-1,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-2-2,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-2-3,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-2-4,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-3-1,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-3-2,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-3-3,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-3-4,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-4-1,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-4-2,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-4-3,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-4-4,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-5-1,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-5-2,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-5-3,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-5-4 {
+    margin-bottom: 15px;
+}
+
+.cls-page-avatar .ui-content .cls-avatar-div .cls-1-1 img,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-1-2 img,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-1-3 img,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-1-4 img,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-2-1 img,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-2-2 img,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-2-3 img,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-2-4 img,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-3-1 img,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-3-2 img,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-3-3 img,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-3-4 img,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-4-1 img,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-4-2 img,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-4-3 img,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-4-4 img,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-5-1 img,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-5-2 img,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-5-3 img,
+.cls-page-avatar .ui-content .cls-avatar-div .cls-5-4 img {
+    border-radius: 50%;
+    width: 60px !important;
+    height: 60px !important;
+    border: 3px solid rgb(0, 84, 149);
+    
+/*    border-radius: 33px;*/
+/*    border: none;*/
+/*
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+*/
+/*    box-shadow: 3px 3px 3px rgb(255, 147, 0);*/
+/*    border: 2px solid rgb(0, 84, 149);*/
+/*    border: 2px solid rgb(255, 147, 0);*/
+}
+
+.cls-page-avatar .ui-content .cls-avatar-addsubmit-div {
+    width: 90%;
+    height: 44px;
+    margin-top: 30px;
+    margin-right: 5%;
+    margin-left: 5%;
+    background: transparent;
+    border: 2px solid rgb(0, 84, 149);
+    border-radius: 2em;
+}
+
+.cls-page-avatar .ui-content .cls-avatar-addsubmit-div .cls-form-avatarbtn {
+    width: 100%;
+    height: 44px;
+}
+
+.cls-page-avatar .ui-content .cls-avatar-addsubmit-div .cls-form-avatarbtn .cls-submitbtn-avatar {
+    width: 100%;
+    height: 44px;
+    font-size: 16px;
+    padding: 0.6em 0;
+    text-align: center;
+    position: relative;
+
+	overflow: hidden;
+	white-space: nowrap;
+	cursor: pointer;
+
+    background-color: transparent;
+    color: rgb(0, 84, 149);
+    font-weight: none;
+    word-spacing: 0.25em;
+    letter-spacing: 0.15em;
+/*    border: 3px solid rgb(0, 84, 149);*/
+    border-radius: 2em;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+    outline: none;
+}
+
+.cls-page-avatar .ui-content .cls-avatar-addsubmit-div .cls-form-avatarbtn .cls-submitbtn-avatar:target {
+    background-color: rgb(0, 84, 149);
+    color: white;
+}
+
+.cls-page-avatar .ui-content .cls-avatar-addsubmit-div .cls-form-avatarbtn .cls-submitbtn-avatar:active {
+    background-color: rgba(252, 247, 135, 0.58);
+    color: rgb(0, 84, 149);
+    border: 0;
+    -webkit-text-shadow: none;
+    text-shadow: none;
+}
+
+
+
+/* ------- LINK Page -------- */
+/*****************************/
+.cls-page-link .ui-content {
+    height: 100%;
+}
+
+.cls-page-link .ui-content .cls-faveulink-logo {
+    width: 40%;
+    height: 100px;
+    margin: 30% 30% 0 30%;
+    text-align: center;
+}
+
+.cls-page-link .ui-content .cls-faveulink-logo img {
+    width: 100px;
+    height: 100px;
+}
+
+.cls-page-link .ui-content .cls-message-link {
+    width: 90%;
+    margin: 10% 5% 13% 5%;
+    text-align: center;
+    color: rgb(0, 84, 149);
+}
+
+.cls-page-link .ui-content .cls-message-link p:first-child {
+    font-size: 22px;
+    word-spacing: 3px;
+    letter-spacing: 2px;
+}
+
+.cls-page-link .ui-content .cls-message-link p:last-child {
+    font-size: 18px;
+    word-spacing: 2px;
+    letter-spacing: 1px;
+    padding-top: 60px;
+}
+
+.cls-page-link .ui-content .cls-linkbtn-div {
+    width: 60%;
+    height: 50px;
+    margin-top: 20px;
+    margin-right: 20%;
+    margin-left: 20%;
+}
+.cls-page-link .ui-content .cls-nomorelinkbtn-div,
+.cls-page-link .ui-content .cls-firstpagelinkbtn-div {
+    width: 60%;
+    height: 50px;
+    margin-top: 20px;
+    margin-right: 20%;
+    margin-left: 20%;
+    background: transparent;
+}
+
+.cls-page-link .ui-content .cls-linkbtn-div .cls-form-linkbtn,
+.cls-page-link .ui-content .cls-nomorelinkbtn-div .cls-form-nomorelinkbtn,
+.cls-page-link .ui-content .cls-firstpagelinkbtn-div .cls-form-firstpagelinkbtn {
+    width: 100%;
+    height: 50px;
+}
+
+.cls-page-link .ui-content .cls-linkbtn-div .cls-form-linkbtn .cls-submitbtn-link {
+    width: 100%;
+    height: 44px;
+    font-size: 18px;
+    padding: 0.5em 0;
+    text-align: center;
+    position: relative;
+
+	overflow: hidden;
+	white-space: nowrap;
+	cursor: pointer;
+
+    background: rgb(0, 84, 149);
+    color: white;
+    font-weight: none;
+    word-spacing: 0.25em;
+    letter-spacing: 0.15em;
+/*    border: 3px solid rgb(0, 84, 149);*/
+    border-radius: 2em;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+    outline: none;
+} 
+
+.cls-page-link .ui-content .cls-nomorelinkbtn-div .cls-form-nomorelinkbtn .cls-submitbtn-nomorelink,
+.cls-page-link .ui-content .cls-firstpagelinkbtn-div .cls-form-firstpagelinkbtn .cls-submitbtn-firstpagelink {
+    width: 100%;
+    height: 44px;
+    font-size: 18px;
+    padding: 0.5em 0;
+    text-align: center;
+    position: relative;
+
+	overflow: hidden;
+	white-space: nowrap;
+	cursor: pointer;
+
+    font-weight: none;
+    word-spacing: 0.25em;
+    letter-spacing: 0.15em;
+    border: 3px solid rgb(0, 84, 149);
+    border-radius: 2em;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+    outline: none;
+} 
+
+.cls-page-link .ui-content .cls-nomorelinkbtn-div .cls-form-nomorelinkbtn .cls-submitbtn-nomorelink {
+    background-color: transparent;
+    color: rgba(0, 83, 149, 0.75);
+    border: 3px solid rgba(0, 83, 149, 0.75);
+    border-radius: 2em;
+}
+
+.cls-page-link .ui-content .cls-firstpagelinkbtn-div .cls-form-firstpagelinkbtn .cls-submitbtn-firstpagelink {
+    background-color: transparent;
+    color: rgba(0, 83, 149, 0.5);
+    border: 3px solid rgba(0, 83, 149, 0.5);
+    border-radius: 2em;
+}
+
+.cls-page-link .ui-content .cls-linkbtn-div .cls-form-linkbtn .cls-submitbtn-link:target {
+    background: rgb(0, 84, 149);
+    color: white;
+}
+.cls-page-link .ui-content .cls-nomorelinkbtn-div .cls-form-nomorelinkbtn .cls-submitbtn-nomorelink:target {
+    background-color: transparent;
+    color: rgba(0, 83, 149, 0.75);
+    border: 3px solid rgba(0, 83, 149, 0.75);
+    border-radius: 2em;
+}
+.cls-page-link .ui-content .cls-firstpagelinkbtn-div .cls-form-firstpagelinkbtn .cls-submitbtn-firstpagelink:target {
+    background-color: transparent;
+    color: rgba(0, 83, 149, 0.5);
+    border: 3px solid rgba(0, 83, 149, 0.5);
+    border-radius: 2em;
+}
+
+.cls-page-link .ui-content .cls-linkbtn-div .cls-form-linkbtn .cls-submitbtn-link:active {
+    background-color: transparent;
+    color: rgb(0, 83, 149);
+    border: 3px solid rgb(0, 83, 149);
+    border-radius: 2em;
+}
+.cls-page-link .ui-content .cls-nomorelinkbtn-div .cls-form-nomorelinkbtn .cls-submitbtn-nomorelink:active {
+    background-color: rgba(0, 83, 149, 0.75);
+    color: white;
+    border: 0;
+    -webkit-text-shadow: none;
+    text-shadow: none;
+}
+.cls-page-link .ui-content .cls-firstpagelinkbtn-div .cls-form-firstpagelinkbtn .cls-submitbtn-firstpagelink:active {
+    background-color: rgba(0, 83, 149, 0.5);
+    color: white;
+    border: 0;
+    -webkit-text-shadow: none;
+    text-shadow: none;
+}
+
+
+
+
+/* iPhone 7 in portrait */
+@media only screen and (min-device-width : 375px) and (max-device-width : 667px) and (orientation : portrait) {
+    /*****************************/
+    /* ------- 1st Page -------- */
+    /*****************************/
+    .cls-page-1 .ui-content .cls-imglogo img {
+        width: 118px;
+        height: 150px;
+    }
+
+    .cls-page-1 .ui-content .cls-userin .cls-formuserin input[type="name"] {
+        margin-top: 3%;
+    }
+
+    .cls-page-1 .ui-content .cls-disclaimer {
+        width: 50%;
+        height: 25px;
+        margin: 10% 25% 0 25%;
+        text-align: center;
+        letter-spacing: 2px;
+        color: rgb(0, 84, 149);
+    }
+
+}
+
+/* iPhone 7 Plus in portrait */
+@media only screen and (min-device-width : 414px) and (max-device-width : 736px) and (orientation : portrait) {
+    
+    /*****************************/
+    /* ------- 1st Page -------- */
+    /*****************************/
+    .cls-page-1 .ui-content .cls-imglogo img {
+        width: 118px;
+        height: 150px;
+    }
+
+    .cls-page-1 .ui-content .cls-userin .cls-formuserin input[type="name"] {
+        margin-top: 6%;
+    }
+
+    .cls-page-1 .ui-content .cls-disclaimer {
+        width: 50%;
+        height: 25px;
+        margin: 10% 25% 0 25%;
+        text-align: center;
+        letter-spacing: 2px;
+        color: rgb(0, 84, 149);
+    }
+}
+
+/* iPhone 6 in portrait */
+@media only screen and (min-device-width : 375px) and (max-device-width : 667px) and (orientation : portrait) { 
+    /*****************************/
+    /* ------- 1st Page -------- */
+    /*****************************/
+    .cls-page-1 .ui-content .cls-imglogo img {
+        width: 118px;
+        height: 150px;
+    }
+
+    .cls-page-1 .ui-content .cls-userin .cls-formuserin input[type="name"] {
+        margin-top: 3%;
+    }
+
+    .cls-page-1 .ui-content .cls-disclaimer {
+        width: 50%;
+        height: 25px;
+        margin: 10% 25% 0 25%;
+        text-align: center;
+        letter-spacing: 2px;
+        color: rgb(0, 84, 149);
+    }
+}
+
+/* iPhone 6 Plus in portrait */
+@media only screen and (min-device-width : 414px) and (max-device-width : 736px) and (orientation : portrait) {
+    /*****************************/
+    /* ------- 1st Page -------- */
+    /*****************************/
+    .cls-page-1 .ui-content .cls-imglogo img {
+        width: 118px;
+        height: 150px;
+    }
+
+    .cls-page-1 .ui-content .cls-userin .cls-formuserin input[type="name"] {
+        margin-top: 3%;
+    }
+
+    .cls-page-1 .ui-content .cls-disclaimer {
+        width: 50%;
+        height: 25px;
+        margin: 10% 25% 0 25%;
+        text-align: center;
+        letter-spacing: 2px;
+        color: rgb(0, 84, 149);
+    }
+}
+
+/* iPhone 5 & 5S in portrait */
+@media only screen and (min-device-width : 320px) and (max-device-width : 568px) and (orientation : portrait) {
+    /*****************************/
+    /* ------- 1st Page -------- */
+    /*****************************/
+    .cls-page-1 .ui-content .cls-imglogo img {
+        width: 118px;
+        height: 150px;
+    }
+
+    .cls-page-1 .ui-content .cls-userin .cls-formuserin input[type="name"] {
+        margin-top: 3%;
+    }
+
+    .cls-page-1 .ui-content .cls-disclaimer {
+        width: 50%;
+        height: 25px;
+        margin: 10% 25% 0 25%;
+        text-align: center;
+        letter-spacing: 2px;
+        color: rgb(0, 84, 149);
+    }
+}
+
+/* iPads (portrait) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+
+}
+
+/* iPad mini in portrait */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) and (-webkit-min-device-pixel-ratio: 1)  {
+
+}
+
